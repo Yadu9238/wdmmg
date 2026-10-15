@@ -9,8 +9,8 @@
   const STORE_KEY = "wdmmg.data.v1";
 
   const S = {
-    txns: [], A: null, source: "sample", meta: null, sel: null, range: 24, yearMode: "cal",
-    led: { q: "", cat: "", dir: "", scope: "month", limit: 60, mkey: null, ids: null, label: "" },
+    txns: [], A: null, source: "sample", meta: null, sel: null, range: 24, yearMode: "cal", scope: "month",
+    led: { q: "", cat: "", dir: "", scope: "month", limit: 60, mkey: null, ids: null, keys: null, label: "" },
     pending: [], showStopped: false,
   };
 
@@ -24,7 +24,7 @@
     let sel = ms[ms.length - 1];
     if (S.A.M[sel].partial && S.A.M[sel].partial.to && ms.length > 1) sel = ms[ms.length - 2];
     S.sel = sel;
-    S.led = { ...S.led, q: "", cat: "", dir: "", scope: "month", limit: 60, mkey: null, ids: null, label: "" };
+    S.led = { ...S.led, q: "", cat: "", dir: "", scope: "month", limit: 60, mkey: null, ids: null, keys: null, label: "" };
     $("#ledQ").value = "";
     renderAll();
   }
@@ -202,10 +202,47 @@
     $("#insights").innerHTML = h;
   }
 
+  // ---------- Period (month / all to date / full year) ----------
+  function period() {
+    const A = S.A, k = S.sel, mode = S.yearMode;
+    if (S.scope === "month") return { scope: "month", keys: [k], agg: A.M[k], label: F.monthLong(k), short: F.monthShort(k) };
+    if (S.scope === "all") {
+      const keys = A.months.slice();
+      return { scope: "all", keys, agg: WD.aggregate(A, keys), label: `${F.date(A.dataStart)} – ${F.date(A.dataEnd)}`, short: "All to date", base: null, baseAgg: null, baseLabel: null, incomplete: false };
+    }
+    const y = WD.yearOf(k, mode);
+    const slots = WD.yearMonths(y, mode);
+    const keys = slots.filter((x) => A.M[x]);
+    const base = keys.map((x) => WD.addMonths(x, -12));
+    const baseOk = base.every((x) => A.M[x]);
+    const span = (ks) => `${WD.MONTH_SHORT[WD.parseKey(ks[0]).m]}–${WD.MONTH_SHORT[WD.parseKey(ks[ks.length - 1]).m]}`;
+    const yl = WD.yearLabel(y, mode);
+    const label = keys.length < 12 ? `${span(keys)} ${yl}` : yl;
+    const baseLabel = !baseOk ? null : keys.length === 12 ? WD.yearLabel(y - 1, mode) : `${span(base)} ${WD.yearLabel(y - 1, mode)}`;
+    return {
+      scope: S.scope, y, slots, keys, agg: WD.aggregate(A, keys), label, short: label,
+      base: baseOk ? base : null, baseAgg: baseOk ? WD.aggregate(A, base) : null, baseLabel,
+      incomplete: keys.length < 12,
+    };
+  }
+
+  function renderPeriodControls() {
+    const k = S.sel, mode = S.yearMode, y = WD.yearOf(k, mode);
+    const yl = mode === "fy" ? `FY ${String(y).slice(2)}–${String(y + 1).slice(2)}` : String(y);
+    const html = `<div class="seg" role="group" aria-label="Period">
+        <button data-pscope="month" aria-pressed="${S.scope === "month"}">${esc(F.monthShort(k))}</button>
+        <button data-pscope="year" aria-pressed="${S.scope === "year"}">Full ${esc(yl)}</button>
+        <button data-pscope="all" aria-pressed="${S.scope === "all"}" title="${esc(F.date(S.A.dataStart) + " – " + F.date(S.A.dataEnd))}">All to date</button></div>
+      ${S.scope === "month" ? "" : `<div class="seg" role="group" aria-label="Year type">
+        <button data-pyear="cal" aria-pressed="${mode === "cal"}">Calendar</button><button data-pyear="fy" aria-pressed="${mode === "fy"}">Apr–Mar</button></div>`}`;
+    $$(".period-ctl").forEach((el) => (el.innerHTML = html));
+  }
+
   // ---------- Flow ----------
   function renderFlow() {
-    const A = S.A, k = S.sel, mo = A.M[k];
-    $("#flowSub").textContent = `${F.monthLong(k)}: money in on the left, where it ended up on the right.`;
+    const P = period(), mo = P.agg;
+    const isMonth = P.scope === "month";
+    $("#flowSub").textContent = `${P.label}${isMonth ? "" : ` · ${P.keys.length} month${P.keys.length === 1 ? "" : "s"}`}${P.scope === "all" ? ", everything in your statements" : ""}: money in on the left, where it ended up on the right.${mo.partial ? " Includes a partial month." : ""}`;
     const box = $("#flowChart");
     box.innerHTML = width(box) < 560 ? WD.chartFlowList(mo) : WD.chartFlow(mo, width(box));
 
@@ -223,16 +260,16 @@
         <span class="nws-mark" style="left:${(0.5 * inc / total) * 100}%"></span><span class="nws-mark" style="left:${(0.8 * inc / total) * 100}%"></span>
         ${total > mo.income ? `<span class="nws-income" style="left:${(mo.income / total) * 100}%" data-tip="Money in ends here|Everything to the right came from your balance"></span>` : ""}
       </div>
-      ${over ? `<p class="nws-warn">${icon("alert", "sm")}Needs and wants came to ${F.pct((mo.need + mo.want) / inc)} of money in. The red line marks where money in ran out${mo.invested > 0 ? "; this month's investments were funded from your balance" : ""}.</p>` : ""}
+      ${over ? `<p class="nws-warn">${icon("alert", "sm")}Needs and wants came to ${F.pct((mo.need + mo.want) / inc)} of money in. The red line marks where money in ran out${mo.invested > 0 ? `; ${isMonth ? "this month's" : "these"} investments were funded from your balance` : ""}.</p>` : ""}
       <dl class="nws-rows">
         <div><dt><i class="sw sw-need"></i>Needs</dt><dd>${F.inr(mo.need)}</dd><dd class="muted">${F.pct(mo.need / inc)} · aim ≤ 50%</dd><dd>${status(mo.need / inc <= 0.5, "over guide")}</dd></div>
         <div><dt><i class="sw sw-want"></i>Wants</dt><dd>${F.inr(mo.want)}</dd><dd class="muted">${F.pct(mo.want / inc)} · aim ≤ 30%</dd><dd>${status(mo.want / inc <= 0.3, "over guide")}</dd></div>
         <div><dt><i class="sw ${over ? "sw-short" : "sw-saved"}"></i>${over ? "Shortfall" : "Saved &amp; invested"}</dt><dd class="${over ? "neg" : ""}">${over ? "−" + F.inr(-mo.kept) : F.inr(mo.kept)}</dd><dd class="muted">${F.pct(savedPct)} · aim ≥ 20%</dd><dd>${status(savedPct >= 0.2, over ? "overspent" : "below guide")}</dd></div>
       </dl>`;
     const big = mo.txns.filter((t) => t.amount < 0 && t.kind !== "transfer").sort((a, b) => a.amount - b.amount).slice(0, 5);
-    s += `<h3 class="h3 mt">Largest payments</h3><ol class="big-list">`;
+    s += `<h3 class="h3 mt">Largest payments${isMonth ? "" : ` · ${esc(P.scope === "all" ? "all to date" : P.label)}`}</h3><ol class="big-list">`;
     big.forEach((t) => {
-      s += `<li><span class="big-date">${F.dateShort(t.date)}</span><span class="big-name"><span>${esc(t.merchant)}</span><small>${esc(WD.CAT[t.cat].label)}</small></span><span class="big-amt">${F.inr(-t.amount)}</span></li>`;
+      s += `<li><span class="big-date">${isMonth ? F.dateShort(t.date) : `${F.dateShort(t.date)}<br>${t.date.getFullYear()}`}</span><span class="big-name"><span>${esc(t.merchant)}</span><small>${esc(WD.CAT[t.cat].label)}</small></span><span class="big-amt">${F.inr(-t.amount)}</span></li>`;
     });
     s += `</ol>`;
     $("#flowSide").innerHTML = s;
@@ -240,6 +277,8 @@
 
   // ---------- Categories ----------
   function renderCategories() {
+    if (S.scope !== "month") return renderCategoriesPeriod();
+    $("#catTitle").textContent = "Categories, month on month";
     const A = S.A, k = S.sel, i = monthIdx(), mo = A.M[k];
     const pk = prevKey(), lk = lyKey();
     $("#catSub").textContent = `${F.monthLong(k)} against ${pk ? F.monthName(pk) : "the month before"}${lk ? ` and ${F.monthShort(lk)}` : ""}. Select a row to see its transactions.`;
@@ -269,6 +308,64 @@
     t += `</tbody><tfoot><tr><th scope="row">Total spent</th><td class="num strong">${F.inr(mo.spend)}</td><td class="col-opt"></td>
       <td class="num">${pk ? deltaAbs(mo.spend, A.M[pk].spend) : "—"}</td><td class="num">${lk ? deltaAbs(mo.spend, A.M[lk].spend) : "—"}</td>
       <td class="num muted col-opt">${F.inr(WD.mean(A.months.slice(Math.max(0, i - 6), i).map((x) => A.M[x].spend)))}</td><td class="col-opt"></td></tr></tfoot></table>`;
+    $("#catTable").innerHTML = t;
+  }
+
+  function renderCategoriesPeriod() {
+    if (S.scope === "all") return renderCategoriesAll();
+    const A = S.A, P = period(), mo = P.agg, n = P.keys.length;
+    $("#catTitle").textContent = "Categories, full year";
+    $("#catSub").textContent = `${P.label}${P.incomplete ? ` (${n} of 12 months in your statements)` : ""}${P.base ? ` against ${P.baseLabel}` : ". Last-year comparison needs the same months from the year before"}. Select a row to see its transactions.${mo.partial ? " Includes a partial month." : ""}`;
+    const b = P.baseAgg;
+    const slotIdx = P.slots.map((x) => A.months.indexOf(x));
+    const selSlot = P.slots.indexOf(S.sel);
+    const cats = A.spendCats.filter((c) => (mo.cats[c] || 0) > 0 || (b && (b.cats[c] || 0) > 0))
+      .sort((x, y) => (mo.cats[y] || 0) - (mo.cats[x] || 0) || ((b && b.cats[y]) || 0) - ((b && b.cats[x]) || 0));
+    const totalSpend = Math.max(1, mo.spend);
+    let t = `<table class="tbl cats"><thead><tr><th scope="col">Category</th><th scope="col" class="num" title="${esc(P.label)}">Total</th><th scope="col" class="num col-opt">Share</th>
+      <th scope="col" class="num" title="${P.base ? esc("vs " + P.baseLabel) : ""}">vs last year</th><th scope="col" class="num">Avg / month</th>
+      <th scope="col" class="num col-opt">Last year avg</th><th scope="col" class="trend-col col-opt">Month by month</th></tr></thead><tbody>`;
+    for (const c of cats) {
+      const cur = mo.cats[c] || 0, cat = WD.CAT[c];
+      const bv = b ? b.cats[c] || 0 : null;
+      const mini = slotIdx.map((ix) => (ix >= 0 ? A.series[c][ix] : 0));
+      t += `<tr class="row-link" data-act="cat" data-cat="${c}" tabindex="0" aria-label="${esc(cat.label)}: ${F.inr(cur)} in ${esc(P.label)}. Show transactions">
+        <th scope="row"><span class="cat-name"><i class="sw" style="background:${cat.color}"></i>${esc(cat.label)}<small>${WD.KIND_LABEL[cat.kind]}</small></span></th>
+        <td class="num strong">${cur ? F.inr(cur) : '<span class="muted">—</span>'}</td>
+        <td class="num col-opt"><span class="share"><span class="share-bar" style="width:${Math.min(100, (cur / totalSpend) * 100)}%;background:${cat.color}"></span>${cur ? F.pct(cur / totalSpend) : ""}</span></td>
+        <td class="num">${bv != null ? deltaAbs(cur, bv) : "—"}</td>
+        <td class="num">${cur ? F.inr(cur / n) : "—"}</td>
+        <td class="num muted col-opt">${bv ? F.inr(bv / n) : "—"}</td>
+        <td class="trend-col col-opt">${WD.chartMini(mini, selSlot, cat.color)}</td></tr>`;
+    }
+    t += `</tbody><tfoot><tr><th scope="row">Total spent</th><td class="num strong">${F.inr(mo.spend)}</td><td class="col-opt"></td>
+      <td class="num">${b ? deltaAbs(mo.spend, b.spend) : "—"}</td><td class="num">${F.inr(mo.spend / n)}</td>
+      <td class="num muted col-opt">${b ? F.inr(b.spend / n) : "—"}</td><td class="col-opt"></td></tr></tfoot></table>`;
+    $("#catTable").innerHTML = t;
+  }
+
+  function renderCategoriesAll() {
+    const A = S.A, P = period(), mo = P.agg, n = P.keys.length;
+    const ys = WD.years(A, S.yearMode);
+    $("#catTitle").textContent = "Categories, all to date";
+    $("#catSub").textContent = `${P.label}: ${n} months, everything in your statements, with each ${S.yearMode === "fy" ? "financial " : ""}year's total. Part years show how many months they cover. Select a row to see its transactions.`;
+    const cats = A.spendCats.filter((c) => (mo.cats[c] || 0) > 0).sort((x, y) => mo.cats[y] - mo.cats[x]);
+    const totalSpend = Math.max(1, mo.spend);
+    const yearHead = ys.map((y) => `<th scope="col" class="num col-opt">${esc(y.label)}${y.months < 12 ? `<small class="th-sub">${y.months} mo</small>` : ""}</th>`).join("");
+    let t = `<table class="tbl cats"><thead><tr><th scope="col">Category</th><th scope="col" class="num">Total</th><th scope="col" class="num col-opt">Share</th>
+      <th scope="col" class="num">Avg / month</th>${yearHead}<th scope="col" class="trend-col col-opt">Month by month</th></tr></thead><tbody>`;
+    for (const c of cats) {
+      const cur = mo.cats[c], cat = WD.CAT[c];
+      t += `<tr class="row-link" data-act="cat" data-cat="${c}" tabindex="0" aria-label="${esc(cat.label)}: ${F.inr(cur)} to date. Show transactions">
+        <th scope="row"><span class="cat-name"><i class="sw" style="background:${cat.color}"></i>${esc(cat.label)}<small>${WD.KIND_LABEL[cat.kind]}</small></span></th>
+        <td class="num strong">${F.inr(cur)}</td>
+        <td class="num col-opt"><span class="share"><span class="share-bar" style="width:${Math.min(100, (cur / totalSpend) * 100)}%;background:${cat.color}"></span>${F.pct(cur / totalSpend)}</span></td>
+        <td class="num">${F.inr(cur / n)}</td>
+        ${ys.map((y) => `<td class="num col-opt">${y.cats[c] ? F.inr(y.cats[c]) : '<span class="muted">—</span>'}</td>`).join("")}
+        <td class="trend-col col-opt">${WD.chartMini(A.series[c], A.months.indexOf(S.sel), cat.color)}</td></tr>`;
+    }
+    t += `</tbody><tfoot><tr><th scope="row">Total spent</th><td class="num strong">${F.inr(mo.spend)}</td><td class="col-opt"></td><td class="num">${F.inr(mo.spend / n)}</td>
+      ${ys.map((y) => `<td class="num col-opt">${F.inr(y.spend)}</td>`).join("")}<td class="col-opt"></td></tr></tfoot></table>`;
     $("#catTable").innerHTML = t;
   }
 
@@ -332,6 +429,66 @@
       note += `<p class="note">A year-to-date comparison needs the same months from the previous year in your statements.</p>`;
     }
     $("#yearNote").innerHTML = note;
+  }
+
+  // ---------- Investments ----------
+  function renderInvestments() {
+    const A = S.A, inv = WD.investments(A);
+    $("#invSub").textContent = "Money moved from this account into SIPs, PPF, deposits and brokers. A bank statement can't see returns or current value, so this tracks what you put in and what came back.";
+    if (!inv.out) {
+      $("#invVerdict").innerHTML = "No investments found in these statements yet. SIPs, PPF, FDs and broker transfers appear here automatically; you can also set any payment's category to Investments in Transactions.";
+      ["#invLegend", "#invChart", "#invSide", "#invTable"].forEach((s) => ($(s).innerHTML = ""));
+      return;
+    }
+    const l12 = inv.last12, p12 = inv.prev12;
+    let v = `You've put <b class="pos">${F.inr(inv.out)}</b> into investments since ${F.dateShort(A.dataStart)} ${A.dataStart.getFullYear()}: <b>${F.pct(inv.out / Math.max(1, inv.income))}</b> of everything that came in.`;
+    v += ` In the last 12 months it was <b>${F.inr(l12.out)}</b>, ${F.pct(l12.out / Math.max(1, l12.income))} of money in`;
+    if (p12 && p12.out > 0) { const g = l12.out / p12.out - 1; v += `, ${Math.abs(g) < 0.01 ? "level with" : `${F.pct(Math.abs(g))} ${g > 0 ? "more than" : "less than"}`} the 12 months before`; }
+    v += ".";
+    if (inv.back) v += ` ${F.inr(inv.back)} came back out as withdrawals or redemptions.`;
+    $("#invVerdict").innerHTML = v;
+
+    const used = WD.INSTRUMENTS.filter((ins) => inv.byInst[ins.id]);
+    $("#invLegend").innerHTML = used.map((ins) => `<span><i class="sw" style="background:${ins.color}"></i>${esc(ins.label)}</span>`).join("") + (inv.back ? `<span><i class="sw sw-back"></i>Withdrawn</span>` : "");
+    const box = $("#invChart");
+    box.innerHTML = WD.chartInvest(inv, A.months, S.sel, width(box));
+
+    const fact = (dt, dd) => `<div><dt>${dt}</dt><dd>${dd}</dd></div>`;
+    let s = `<dl class="runway-facts inv-facts">
+      ${fact("Invested to date", F.inr(inv.out))}
+      ${fact(`Last ${l12.n} months`, `${F.inr(l12.out)} <small class="muted">${F.pct(l12.out / Math.max(1, l12.income))} of money in</small>`)}
+      ${fact("Average per month", `${F.inr(l12.out / l12.n)} <small class="muted">last ${l12.n} months</small>`)}
+      ${fact("Regular commitment", inv.commitment ? `${F.inr(inv.commitment)} / month` : "—")}
+      ${fact("Months with an investment", `${inv.monthsWith} of ${A.months.length}`)}
+      ${inv.back ? fact("Withdrawn or redeemed", F.inr(inv.back)) : ""}
+    </dl><h3 class="h3 mt">By instrument</h3><ol class="flow-list inv-mix">`;
+    const maxI = Math.max(...used.map((ins) => inv.byInst[ins.id]));
+    used.sort((a, b) => inv.byInst[b.id] - inv.byInst[a.id]).forEach((ins) => {
+      const a = inv.byInst[ins.id];
+      s += `<li><span class="fl-label">${esc(ins.label)}</span><span class="fl-value">${F.inr(a)} <small>${F.pct(a / inv.out)}</small></span><span class="fl-bar"><i style="width:${(a / maxI) * 100}%;background:${ins.color}"></i></span></li>`;
+    });
+    $("#invSide").innerHTML = s + `</ol>`;
+
+    const instLabel = Object.fromEntries(WD.INSTRUMENTS.map((x) => [x.id, x]));
+    let t = `<table class="tbl rec inv"><thead><tr><th scope="col">Paid to</th><th scope="col" class="col-opt">Instrument</th><th scope="col" class="col-opt">Rhythm</th><th scope="col" class="num col-opt">Latest</th><th scope="col" class="col-opt">Step-ups</th><th scope="col" class="col-opt">Consistency</th><th scope="col" class="num">Last 12 months</th><th scope="col" class="num">To date</th><th scope="col" class="col-opt">Since</th></tr></thead><tbody>`;
+    inv.dests.forEach((d) => {
+      const ins = instLabel[d.inst];
+      const c = d.consistency;
+      const cons = c ? (c.paid >= c.expected ? `<span class="guide is-ok">${icon("check", "sm")}every month</span>` : `<span class="guide is-over">${c.paid} of ${c.expected} months</span>`) : `<span class="muted">—</span>`;
+      const ch = d.change ? `<span class="delta ${d.change.to > d.change.from ? "is-good" : "is-bad"}">${icon(d.change.to > d.change.from ? "d-up" : "d-down", "d")}from ${F.inr(d.change.from)}</span> <small class="muted">${F.monthShort(WD.keyOf(d.change.date))}</small>` : `<span class="muted">${d.recurring ? "steady" : "—"}</span>`;
+      const stopped = d.recurring && !d.active;
+      t += `<tr class="row-link${stopped ? " is-stopped" : ""}" data-act="merchant" data-mkey="${esc(d.key)}" data-name="${esc(d.name)}" tabindex="0" aria-label="${esc(d.name)}. Show payments">
+        <th scope="row"><span class="payee">${esc(d.name)}${stopped ? ' <span class="pill pill-sm">stopped</span>' : ""}</span><small class="m-only muted">${esc(ins.label)} · ${d.cadence}</small></th>
+        <td class="col-opt"><span class="cat-name"><i class="sw" style="background:${ins.color}"></i>${esc(ins.label)}</span></td>
+        <td class="muted col-opt">${d.cadence}</td>
+        <td class="num col-opt">${F.inr(d.latest)}</td>
+        <td class="col-opt">${ch}</td>
+        <td class="col-opt">${cons}</td>
+        <td class="num strong">${d.last12 ? F.inr(d.last12) : '<span class="muted">—</span>'}</td>
+        <td class="num">${F.inr(d.total)}</td>
+        <td class="muted col-opt">${F.monthShort(WD.keyOf(d.first))}</td></tr>`;
+    });
+    $("#invTable").innerHTML = t + `</tbody></table>`;
   }
 
   // ---------- Habits ----------
@@ -434,7 +591,8 @@
     let list = S.A.txns;
     if (L.ids) { const set = new Set(L.ids); list = list.filter((t) => set.has(t.id)); }
     else {
-      if (L.scope === "month") list = list.filter((t) => t.key === S.sel);
+      if (L.keys) { const set = new Set(L.keys); list = list.filter((t) => set.has(t.key)); }
+      else if (L.scope === "month") list = list.filter((t) => t.key === S.sel);
       if (L.cat) list = list.filter((t) => t.cat === L.cat);
       if (L.mkey) list = list.filter((t) => t.mkey === L.mkey);
       if (L.dir === "out") list = list.filter((t) => t.amount < 0);
@@ -448,12 +606,13 @@
     const L = S.led;
     $("#ledCat").innerHTML = catOptions(L.cat, true);
     $$("#ledDir button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.dir === L.dir)));
-    $$("#ledScope button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.scope === L.scope)));
+    $$("#ledScope button").forEach((b) => b.setAttribute("aria-pressed", String(!L.keys && b.dataset.scope === L.scope)));
     $("#ledScopeMonth").textContent = F.monthShort(S.sel);
     const list = ledgerList();
     const filt = [];
     if (L.ids) filt.push(L.label || "Selected payments");
     if (L.mkey) filt.push(`Payee: ${L.label || L.mkey}`);
+    if (L.keys && !L.ids) filt.push(`Period: ${L.periodLabel}`);
     $("#ledFilter").innerHTML = filt.length ? `<span class="chip">${esc(filt.join(" · "))}<button class="chip-x" data-act="clear-filter" aria-label="Clear filter">${icon("close", "sm")}</button></span>` : "";
     const out = WD.sum(list.filter((t) => t.amount < 0).map((t) => -t.amount)), inn = WD.sum(list.filter((t) => t.amount > 0).map((t) => t.amount));
     let t = `<p class="ledger-sum">${list.length.toLocaleString("en-IN")} transactions · <span class="pos">${F.inr(inn)} in</span> · ${F.inr(out)} out</p>`;
@@ -600,9 +759,15 @@
     el.style.top = Math.max(8, top) + "px";
   }
 
+  function setYearMode(mode) {
+    S.yearMode = mode;
+    renderPeriodControls(); renderYears();
+    if (S.scope !== "month") { renderFlow(); renderCategories(); }
+  }
+
   // ---------- Render all ----------
   function renderAll() {
-    renderSource(); renderOverview(); renderFlow(); renderCategories(); renderYears();
+    renderSource(); renderOverview(); renderPeriodControls(); renderFlow(); renderCategories(); renderYears(); renderInvestments();
     renderHabits(); renderRecurring(); renderBalance(); renderLedger();
   }
 
@@ -632,13 +797,13 @@
     $("#prevMonth").addEventListener("click", () => select(S.A.months[monthIdx() - 1]));
     $("#nextMonth").addEventListener("click", () => select(S.A.months[monthIdx() + 1]));
     $("#rangeSeg").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; S.range = +b.dataset.range; renderOverview(); renderBalance(); });
-    $("#yearSeg").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; S.yearMode = b.dataset.year; renderYears(); });
+    $("#yearSeg").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; setYearMode(b.dataset.year); });
     $("#showStopped").addEventListener("change", (e) => { S.showStopped = e.target.checked; renderRecurring(); });
 
     $("#ledQ").addEventListener("input", (e) => { S.led.q = e.target.value.trim(); S.led.limit = 60; renderLedger(); });
     $("#ledCat").addEventListener("change", (e) => { S.led.cat = e.target.value; S.led.ids = null; S.led.limit = 60; renderLedger(); });
     $("#ledDir").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; S.led.dir = b.dataset.dir; renderLedger(); });
-    $("#ledScope").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; S.led.scope = b.dataset.scope; S.led.ids = null; renderLedger(); });
+    $("#ledScope").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; S.led.scope = b.dataset.scope; S.led.ids = null; S.led.keys = null; renderLedger(); });
 
     document.addEventListener("change", (e) => {
       const sel = e.target.closest(".cat-select");
@@ -654,6 +819,12 @@
     document.addEventListener("click", (e) => {
       const col = e.target.closest(".cf-col");
       if (col) return select(col.dataset.key, true);
+      const icol = e.target.closest(".inv-col");
+      if (icol) return select(icol.dataset.key);
+      const ps = e.target.closest("[data-pscope]");
+      if (ps) { S.scope = ps.dataset.pscope; renderPeriodControls(); renderFlow(); renderCategories(); return; }
+      const py = e.target.closest("[data-pyear]");
+      if (py) return setYearMode(py.dataset.pyear);
       const a = e.target.closest("[data-act]");
       if (!a) return;
       const act = a.dataset.act;
@@ -671,22 +842,23 @@
       } else if (act === "latest") select(S.A.months[S.A.months.length - 1]);
       else if (act === "insight") {
         const it = S.insights[+a.dataset.n];
-        S.led = { ...S.led, q: "", dir: "", limit: 60, ids: null, mkey: null, cat: "", label: "", scope: "month" };
+        S.led = { ...S.led, q: "", dir: "", limit: 60, ids: null, mkey: null, keys: null, cat: "", label: "", scope: "month" };
         if (it.ids) { S.led.ids = it.ids; S.led.label = it.title; }
         else if (it.mkey) { S.led.mkey = it.mkey; S.led.scope = "all"; S.led.label = it.title.replace(/^New recurring payment: /, "").replace(/ went up.*$/, ""); }
         else if (it.cat) S.led.cat = it.cat;
         $("#ledQ").value = "";
         renderLedger(); scrollToLedger();
       } else if (act === "cat") {
-        S.led = { ...S.led, cat: a.dataset.cat, ids: null, mkey: null, q: "", dir: "", scope: "month", limit: 60 };
+        const P = period();
+        S.led = { ...S.led, cat: a.dataset.cat, ids: null, mkey: null, q: "", dir: "", scope: "month", limit: 60, keys: P.scope === "month" ? null : P.keys, periodLabel: P.label };
         $("#ledQ").value = "";
         renderLedger(); scrollToLedger();
       } else if (act === "merchant") {
-        S.led = { ...S.led, mkey: a.dataset.mkey, label: a.dataset.name, ids: null, cat: "", q: "", dir: "", scope: "all", limit: 60 };
+        S.led = { ...S.led, mkey: a.dataset.mkey, label: a.dataset.name, ids: null, keys: null, cat: "", q: "", dir: "", scope: "all", limit: 60 };
         $("#ledQ").value = "";
         renderLedger(); scrollToLedger();
       } else if (act === "clear-filter") {
-        S.led = { ...S.led, mkey: null, ids: null, label: "" };
+        S.led = { ...S.led, mkey: null, ids: null, keys: null, label: "" };
         renderLedger();
       } else if (act === "more") { S.led.limit += 100; renderLedger(); }
       else if (act === "remove-file") { S.pending.splice(+a.dataset.n, 1); renderImport(); }

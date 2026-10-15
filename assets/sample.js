@@ -64,6 +64,10 @@
         out(y, m, 5, `ACH D- INDIAN CLEARING CORP-ZERODHA SIP-${ref()}`, sip);
         if (idx >= 18) out(y, m, 7, `ACH D- BSE STAR MF-PPFAS FLEXI CAP SIP-${ref()}`, 5000);
         if (m === 2) out(y, m, 25, `NEFT DR-SBIN0000813-PPF ACCOUNT DEPOSIT-${ref()}`, 50000);
+        if (y === 2025 && m === 3) out(y, m, 10, `FIXED DEPOSIT BOOKED-${ref()}-12 MONTHS`, 100000);
+        if (y === 2026 && m === 3) inc(y, m, 10, `FIXED DEPOSIT MATURITY PROCEEDS-${ref()}`, 107100);
+        if (idx >= 12 && m % 3 === 0) out(y, m, 12, `ACH D- NPS TRUST-TIER I CONTRIBUTION-${ref()}`, 12500);
+        if (y === 2025 && m === 11) inc(y, m, 1, `NEFT CR-HDFC0000060-INDIAN CLEARING CORP-MF REDEMPTION-${ref()}`, 40000);
 
         const elec = 1250 + (m >= 2 && m <= 4 ? 1500 : 0) + between(-200, 450) + t * 300;
         out(y, m, int(10, 13), `BILLPAY-BESCOM-ELECTRICITY-${ref()}`, Math.round(elec));

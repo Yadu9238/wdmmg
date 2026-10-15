@@ -356,6 +356,87 @@
     return out.sort((a, b) => b.weight - a.weight).slice(0, 6);
   };
 
+  // Combine several months into one month-shaped record (for YTD / full-year views).
+  WD.aggregate = function (A, keys) {
+    const r = { keys, income: 0, spend: 0, need: 0, want: 0, invested: 0, cats: {}, inCats: {}, txns: [], count: 0, partial: false };
+    for (const k of keys) {
+      const mo = A.M[k];
+      if (!mo) continue;
+      r.income += mo.income; r.spend += mo.spend; r.need += mo.need; r.want += mo.want; r.invested += mo.invested;
+      for (const c in mo.cats) r.cats[c] = (r.cats[c] || 0) + mo.cats[c];
+      for (const c in mo.inCats) r.inCats[c] = (r.inCats[c] || 0) + mo.inCats[c];
+      r.txns.push(...mo.txns);
+      r.count += mo.count;
+      if (mo.partial) r.partial = true;
+    }
+    r.kept = r.income - r.spend;
+    r.rate = r.income > 0 ? r.kept / r.income : null;
+    return r;
+  };
+
+  // ---------- Investments ----------
+  const INSTRUMENTS = [
+    { id: "ppf", label: "PPF", re: /\bPPF\b/i, color: "oklch(0.76 0.08 150)" },
+    { id: "nps", label: "NPS", re: /\bNPS\b|NPS TRUST/i, color: "oklch(0.64 0.08 120)" },
+    { id: "deposit", label: "Fixed & recurring deposits", re: /FIXED DEPOSIT|\bFD\b|RECURRING DEP|\bRD\b/i, color: "oklch(0.7 0.06 215)" },
+    { id: "mf", label: "Mutual funds", re: /\bSIP\b|MUTUAL|\bMF\b|BSE STAR|\bCAMS\b|KFIN|\bICCL\b|INDIAN CLEARING|\bCOIN\b/i, color: "oklch(0.58 0.12 168)" },
+    { id: "stocks", label: "Stocks & brokers", re: /ZERODHA|GROWW|UPSTOX|NSE CLEARING|SMALLCASE|PAYTM MONEY|ANGEL ONE|\bDHAN\b/i, color: "oklch(0.42 0.08 180)" },
+    { id: "other", label: "Other investments", re: /.*/, color: "oklch(0.8 0.02 165)" },
+  ];
+  WD.INSTRUMENTS = INSTRUMENTS;
+  const instrumentOf = (t) => INSTRUMENTS.find((x) => x.re.test(t.narration)).id;
+
+  WD.investments = function (A) {
+    const inv = A.txns.filter((t) => t.kind === "save");
+    const monthly = A.months.map((k) => ({ key: k, out: 0, back: 0, by: {} }));
+    const mi = Object.fromEntries(A.months.map((k, i) => [k, i]));
+    const groups = {};
+    let out = 0, back = 0;
+    const byInst = {};
+    for (const t of inv) {
+      const inst = instrumentOf(t);
+      const m = monthly[mi[t.key]];
+      if (t.amount < 0) {
+        const a = -t.amount;
+        out += a; m.out += a; m.by[inst] = (m.by[inst] || 0) + a;
+        byInst[inst] = (byInst[inst] || 0) + a;
+        const g = (groups[t.mkey] = groups[t.mkey] || { key: t.mkey, name: t.merchant, inst, txns: [], months: new Set(), total: 0 });
+        g.txns.push(t); g.months.add(t.key); g.total += a;
+      } else { back += t.amount; m.back += t.amount; }
+    }
+    const end = A.dataEnd;
+    const last12 = A.months.slice(-12), prev12 = A.months.slice(-24, -12);
+    const sumOut = (ks) => sum(ks.map((k) => monthly[mi[k]].out));
+    const sumIn = (ks) => sum(ks.map((k) => A.M[k].income));
+    const rec = Object.fromEntries(A.recurring.map((r) => [r.key, r]));
+    const dests = Object.values(groups).map((g) => {
+      const r = rec[g.key];
+      const first = g.txns[0].date, last = g.txns[g.txns.length - 1].date;
+      let consistency = null;
+      if (r && r.cadence === "Monthly") {
+        let expected = 0;
+        for (let k = keyOf(first); k <= keyOf(r.active ? end : last); k = addMonths(k, 1)) expected++;
+        if (r.active && A.M[keyOf(end)] && A.M[keyOf(end)].partial && !g.months.has(keyOf(end))) expected--;
+        consistency = { paid: g.months.size, expected };
+      }
+      return {
+        ...g, first, last, latest: -g.txns[g.txns.length - 1].amount, recurring: r || null,
+        cadence: r ? r.cadence : g.txns.length === 1 ? "One-off" : "Irregular",
+        active: r ? r.active : (end - last) / DAY < 45, change: r ? r.change : null,
+        last12: sum(g.txns.filter((t) => last12.includes(t.key)).map((t) => -t.amount)), consistency,
+        monthlyEq: r && r.active ? r.annual / 12 : 0,
+      };
+    }).sort((a, b) => b.last12 - a.last12 || b.total - a.total);
+    return {
+      monthly, out, back, net: out - back, byInst, dests,
+      income: sum(A.months.map((k) => A.M[k].income)),
+      last12: { out: sumOut(last12), income: sumIn(last12), n: last12.length },
+      prev12: prev12.length === 12 ? { out: sumOut(prev12), income: sumIn(prev12) } : null,
+      monthsWith: monthly.filter((m) => m.out > 0).length,
+      commitment: sum(dests.map((d) => d.monthlyEq)),
+    };
+  };
+
   WD.parseKey = parseKey;
   WD.mean = mean;
   WD.sum = sum;

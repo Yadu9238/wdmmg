@@ -155,6 +155,47 @@
     return h + `</ol>`;
   };
 
+  // ---------- Investments: monthly stacked bars by instrument ----------
+  WD.chartInvest = function (inv, keys, selected, width) {
+    const W = Math.max(320, width), H = 250, padL = 52, padR = 8, padT = 14, padB = 40;
+    const innerW = W - padL - padR, innerH = H - padT - padB;
+    const rows = keys.map((k) => inv.monthly.find((m) => m.key === k));
+    const maxUp = Math.max(1, ...rows.map((m) => m.out));
+    const maxDown = Math.max(0, ...rows.map((m) => m.back));
+    const step = niceStep(Math.max(maxUp, maxDown), 4);
+    const top = Math.ceil(maxUp / step) * step, bot = maxDown > 0 ? Math.ceil(maxDown / step) * step : 0;
+    const scale = innerH / (top + bot);
+    const y0 = padT + top * scale;
+    const colW = innerW / keys.length, barW = Math.max(3, Math.min(20, colW * 0.5));
+    let g = "";
+    for (let v = -bot; v <= top + 1; v += step) {
+      const yy = y0 - v * scale;
+      g += `<line class="grid${v === 0 ? " grid-zero" : ""}" x1="${padL}" x2="${W - padR}" y1="${yy}" y2="${yy}"/><text class="axis" x="${padL - 8}" y="${yy + 4}" text-anchor="end">${v ? F().compact(Math.abs(v)) : "0"}</text>`;
+    }
+    rows.forEach((m, i) => {
+      const cx = padL + colW * (i + 0.5), sel = m.key === selected;
+      const { m: mon, y: yr } = WD.parseKey(m.key);
+      const lines = [WD.fmt.monthLong(m.key), m.out ? "Invested " + F().inr(m.out) : "Nothing invested"];
+      WD.INSTRUMENTS.forEach((ins) => { if (m.by[ins.id]) lines.push(`${ins.label} ${F().inr(m.by[ins.id])}`); });
+      if (m.back) lines.push("Withdrawn " + F().inr(m.back));
+      g += `<g class="inv-col${sel ? " is-sel" : ""}" data-key="${m.key}" data-tip="${tip(lines)}">`;
+      g += `<rect class="cf-hit" x="${cx - colW / 2}" y="${padT - 6}" width="${colW}" height="${innerH + 12}" rx="6"/>`;
+      let yy = y0;
+      WD.INSTRUMENTS.forEach((ins) => {
+        const v = m.by[ins.id];
+        if (!v) return;
+        const h = v * scale;
+        g += `<rect class="inv-bar" style="fill:${ins.color}" x="${cx - barW / 2}" y="${yy - h}" width="${barW}" height="${h}"/>`;
+        yy -= h;
+      });
+      if (m.back) g += `<rect class="inv-back" x="${cx - barW / 2}" y="${y0}" width="${barW}" height="${m.back * scale}"/>`;
+      if (colW >= 26 || mon % 3 === 0) g += `<text class="axis cf-month${sel ? " is-sel-label" : ""}" x="${cx}" y="${H - padB + 18}" text-anchor="middle">${WD.MONTH_SHORT[mon].slice(0, colW >= 26 ? 3 : 1)}</text>`;
+      if (mon === 0 || i === 0) g += `<text class="axis cf-year" x="${cx - colW / 2 + 2}" y="${H - padB + 34}">${yr}</text>`;
+      g += `</g>`;
+    });
+    return `<svg class="chart chart-inv" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Money invested each month, by instrument">${g}</svg>`;
+  };
+
   // ---------- 12-month mini bars ----------
   WD.chartMini = function (values, selIndex, color) {
     const n = values.length, W = 112, H = 26, bw = W / n;

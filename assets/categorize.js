@@ -76,7 +76,7 @@
   const PREFIX = /^(POS|ECOM|ACH\s?[DC]?|NACH|NEFT\s?(CR|DR)?|IMPS|RTGS|BIL|BILLPAY|BBPS|ONL|INB|MB|IB|TO TRANSFER|BY TRANSFER|CHQ|CLG|ME DC SI|SI)\b[\s\-\/:]*/i;
 
   function titleCase(s) {
-    return s.toLowerCase().replace(/\b([a-z])/g, (m) => m.toUpperCase()).replace(/\b(Upi|Emi|Lic|Atm|Sip|Hdfc|Icici|Sbi|Ppf|Fd|Mf|Bse|Nse|Hpcl|Bpcl|Iocl|Bescom|Irctc|Pvr|Kfc|Dmart|Bmrcl)\b/g, (m) => m.toUpperCase());
+    return s.toLowerCase().replace(/\b([a-z])/g, (m) => m.toUpperCase()).replace(/\b(Upi|Emi|Lic|Atm|Sip|Hdfc|Icici|Sbi|Ppf|Fd|Mf|Bse|Nse|Nps|Hpcl|Bpcl|Iocl|Bescom|Irctc|Pvr|Kfc|Dmart|Bmrcl)\b/g, (m) => m.toUpperCase());
   }
 
   function merchantOf(narration) {

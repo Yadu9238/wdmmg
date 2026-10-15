@@ -217,6 +217,8 @@ main { max-width: var(--page); margin: 0 auto; padding: 0 var(--gutter) 40px; }
 .sec-head h2 { font-size: 23px; font-weight: 600; letter-spacing: -0.018em; line-height: 1.2; }
 .sec-head p { color: var(--ink-3); margin-top: 6px; max-width: 80ch; }
 .sec-head-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; }
+.period-ctl { display: flex; gap: 8px; flex-wrap: wrap; }
+.period-ctl:empty { display: none; }
 .chart-box { min-width: 0; }
 .chart-box svg { display: block; max-width: 100%; height: auto; }
 .table-scroll { overflow-x: auto; position: relative; }
@@ -421,6 +423,17 @@ text.cum-label.cum-old { fill: var(--ink-3); font-weight: 500; }
 .rec .row-link { cursor: pointer; }
 .rec .payee { font-weight: 500; }
 .rec .is-stopped th, .rec .is-stopped td { color: var(--ink-3); }
+
+.inv-col { cursor: pointer; }
+.inv-col:hover .cf-hit { fill: var(--surface-2); }
+.inv-col.is-sel .cf-hit { fill: var(--jade-wash); }
+.inv-bar { shape-rendering: crispEdges; }
+.inv-back { fill: oklch(0.86 0.03 40); }
+.sw-back { background: oklch(0.86 0.03 40); }
+.inv-verdict { margin: 0 0 30px; font-size: 19px; }
+.inv-facts { margin-top: 0; }
+.mt-lg { margin-top: 44px; }
+.th-sub { display: block; font-weight: 400; font-size: 11px; color: var(--ink-3); }
 
 /* Balance */
 .balance-grid { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: 48px; align-items: start; }

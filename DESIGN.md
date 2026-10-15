@@ -359,6 +359,10 @@ Quiet, compact and square-shouldered; the graphite primary is the only heavy fil
 ### Segmented control
 - **Style:** a `surface` capsule-ish track (9px radius, 1px `rule-2` border, 3px padding) holding 26px options at 6px radius in `ink-2`.
 - **State:** hover fills `surface-2`; the pressed option (`aria-pressed="true"`) fills `ink` with `on-ink` text. Used for range (12 mo / 24 mo / All), calendar vs financial year, direction and period filters.
+- **Period pair:** "Where it went" and "Categories" carry a shared period control in their section-head row, right-aligned: selected month / full year / all to date (first to last transaction, independent of the selected month), followed by a second Calendar / Apr–Mar control that appears only for the non-month views. Both sections and the Year-on-year toggle stay in sync; switching never changes the selected month.
+
+### Investments chart
+- Monthly stacked bars by instrument in a jade-family ramp (investments are kept money): mutual funds `oklch(0.58 0.12 168)`, stocks `oklch(0.42 0.08 180)`, PPF `oklch(0.76 0.08 150)`, NPS `oklch(0.64 0.08 120)`, deposits `oklch(0.7 0.06 215)`, other `oklch(0.8 0.02 165)`. Withdrawals and redemptions hang below the zero line in a pale warm tint `oklch(0.86 0.03 40)`. Columns share the cash-flow chart's hover/selected wash and clicking one selects that month.
 
 ### Links
 - **Style:** `jade-ink`, weight 500, underlined at 3px offset with the underline at 35% opacity; hover brings the underline to full colour. Trailing 13px chevron icons for "Show payments". The destructive "Clear data" link swaps to `persimmon-ink`.

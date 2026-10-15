@@ -32,8 +32,9 @@ Tested layouts: HDFC (Withdrawal/Deposit columns, `dd/mm/yy`), SBI (Debit/Credit
 | Section | Measures |
 | --- | --- |
 | Overview | The month's verdict in one sentence; a 24-month cash-flow chart (click or use arrow keys to pick a month); money in, spent, invested, kept, savings rate and balance against last month and the same month last year; automatic "worth a look" notes |
-| Where it went | Flow from income sources to categories, investments and money left over; needs / wants / saved against the 50-30-20 guide; largest payments |
-| Categories | Every category's spend, share, change vs last month and last year, 6-month average and 12-month trend |
+| Where it went | Flow from income sources to categories, investments and money left over; needs / wants / saved against the 50-30-20 guide; largest payments. Switch between the selected month, its full year (calendar or April–March), or all to date (first to last transaction in your statements) |
+| Categories | Every category's spend and share. Month view: change vs last month and last year, 6-month average, 12-month trend. Full-year view: change vs the same months last year, average per month, month-by-month trend. All-to-date view: total, average per month and each year's total side by side |
+| Investments | Money moved into SIPs, PPF, NPS, deposits and brokers: monthly chart by instrument, share of income invested, last 12 months vs the 12 before, regular monthly commitment, withdrawals/redemptions, and each destination's step-ups and SIP consistency. Returns aren't visible in a bank statement, so it tracks what you put in |
 | Year on year | Calendar or Indian financial year (Apr–Mar) totals, savings rate and average monthly spend; cumulative spend vs previous years; year-to-date comparison and lifestyle-inflation check |
 | Habits | Daily spending heatmap, weekday vs weekend, payment channels (UPI, card, auto-debit, transfers, cash) |
 | Recurring | Subscriptions, rent, SIPs, EMIs and bills detected from regular rhythms, with price changes, yearly cost and next expected date |

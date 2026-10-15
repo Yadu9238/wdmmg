@@ -51,6 +51,7 @@
         <a href="#flow">Where it went</a>
         <a href="#categories">Categories</a>
         <a href="#years">Year on year</a>
+        <a href="#investments">Investments</a>
         <a href="#habits">Habits</a>
         <a href="#recurring">Recurring</a>
         <a href="#balance">Balance</a>
@@ -129,7 +130,7 @@
     </section>
 
     <section id="flow" class="sec" aria-labelledby="flowTitle">
-      <div class="sec-head"><h2 id="flowTitle">Where it went</h2><p id="flowSub"></p></div>
+      <div class="sec-head sec-head-row"><div><h2 id="flowTitle">Where it went</h2><p id="flowSub"></p></div><div class="period-ctl"></div></div>
       <div class="flow-grid">
         <div class="chart-box swap" id="flowChart"></div>
         <aside class="flow-side swap" id="flowSide"></aside>
@@ -137,7 +138,7 @@
     </section>
 
     <section id="categories" class="sec" aria-labelledby="catTitle">
-      <div class="sec-head"><h2 id="catTitle">Categories, month on month</h2><p id="catSub"></p></div>
+      <div class="sec-head sec-head-row"><div><h2 id="catTitle">Categories, month on month</h2><p id="catSub"></p></div><div class="period-ctl"></div></div>
       <div class="table-scroll swap" id="catTable"></div>
     </section>
 
@@ -153,6 +154,22 @@
         <div class="chart-box" id="cumChart"></div>
         <div class="years-note swap" id="yearNote"></div>
       </div>
+    </section>
+
+    <section id="investments" class="sec" aria-labelledby="invTitle">
+      <div class="sec-head"><h2 id="invTitle">Investments</h2><p id="invSub"></p></div>
+      <p class="verdict inv-verdict" id="invVerdict"></p>
+      <div class="balance-grid">
+        <div>
+          <h3 class="h3">Invested each month</h3>
+          <div class="legend" id="invLegend"></div>
+          <div class="chart-box" id="invChart"></div>
+        </div>
+        <div id="invSide"></div>
+      </div>
+      <h3 class="h3 mt-lg">Where it goes</h3>
+      <p class="note">Each SIP, deposit and broker this account pays into. Select a row to see its payments.</p>
+      <div class="table-scroll" id="invTable"></div>
     </section>
 
     <section id="habits" class="sec" aria-labelledby="habitTitle">
