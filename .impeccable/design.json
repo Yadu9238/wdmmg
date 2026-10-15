@@ -1,0 +1,840 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-15T15:47:52+05:30",
+  "title": "Design System: Where did my money go",
+  "extensions": {
+    "colorMeta": {
+      "bg": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "oklch(0.975 0.004 165)",
+        "tonalRamp": [
+          "oklch(0.23 0.014 175)",
+          "oklch(0.4 0.012 175)",
+          "oklch(0.5 0.01 175)",
+          "oklch(0.78 0.01 165)",
+          "oklch(0.84 0.008 165)",
+          "oklch(0.905 0.006 165)",
+          "oklch(0.925 0.008 165)",
+          "oklch(0.955 0.006 165)",
+          "oklch(0.975 0.004 165)",
+          "oklch(0.995 0.002 165)"
+        ],
+        "cssVar": "--bg"
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Sheet",
+        "canonical": "oklch(0.995 0.002 165)",
+        "tonalRamp": [
+          "oklch(0.23 0.014 175)",
+          "oklch(0.4 0.012 175)",
+          "oklch(0.5 0.01 175)",
+          "oklch(0.78 0.01 165)",
+          "oklch(0.84 0.008 165)",
+          "oklch(0.905 0.006 165)",
+          "oklch(0.925 0.008 165)",
+          "oklch(0.955 0.006 165)",
+          "oklch(0.975 0.004 165)",
+          "oklch(0.995 0.002 165)"
+        ],
+        "cssVar": "--surface"
+      },
+      "surface-2": {
+        "role": "neutral",
+        "displayName": "Tint 1",
+        "canonical": "oklch(0.955 0.006 165)",
+        "tonalRamp": [
+          "oklch(0.23 0.014 175)",
+          "oklch(0.4 0.012 175)",
+          "oklch(0.5 0.01 175)",
+          "oklch(0.78 0.01 165)",
+          "oklch(0.84 0.008 165)",
+          "oklch(0.905 0.006 165)",
+          "oklch(0.925 0.008 165)",
+          "oklch(0.955 0.006 165)",
+          "oklch(0.975 0.004 165)",
+          "oklch(0.995 0.002 165)"
+        ],
+        "cssVar": "--surface-2"
+      },
+      "surface-3": {
+        "role": "neutral",
+        "displayName": "Tint 2",
+        "canonical": "oklch(0.925 0.008 165)",
+        "tonalRamp": [
+          "oklch(0.23 0.014 175)",
+          "oklch(0.4 0.012 175)",
+          "oklch(0.5 0.01 175)",
+          "oklch(0.78 0.01 165)",
+          "oklch(0.84 0.008 165)",
+          "oklch(0.905 0.006 165)",
+          "oklch(0.925 0.008 165)",
+          "oklch(0.955 0.006 165)",
+          "oklch(0.975 0.004 165)",
+          "oklch(0.995 0.002 165)"
+        ],
+        "cssVar": "--surface-3"
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "oklch(0.905 0.006 165)",
+        "tonalRamp": [
+          "oklch(0.23 0.014 175)",
+          "oklch(0.4 0.012 175)",
+          "oklch(0.5 0.01 175)",
+          "oklch(0.78 0.01 165)",
+          "oklch(0.84 0.008 165)",
+          "oklch(0.905 0.006 165)",
+          "oklch(0.925 0.008 165)",
+          "oklch(0.955 0.006 165)",
+          "oklch(0.975 0.004 165)",
+          "oklch(0.995 0.002 165)"
+        ],
+        "cssVar": "--rule"
+      },
+      "rule-2": {
+        "role": "neutral",
+        "displayName": "Hairline Strong",
+        "canonical": "oklch(0.84 0.008 165)",
+        "tonalRamp": [
+          "oklch(0.23 0.014 175)",
+          "oklch(0.4 0.012 175)",
+          "oklch(0.5 0.01 175)",
+          "oklch(0.78 0.01 165)",
+          "oklch(0.84 0.008 165)",
+          "oklch(0.905 0.006 165)",
+          "oklch(0.925 0.008 165)",
+          "oklch(0.955 0.006 165)",
+          "oklch(0.975 0.004 165)",
+          "oklch(0.995 0.002 165)"
+        ],
+        "cssVar": "--rule-2"
+      },
+      "rule-hover": {
+        "role": "neutral",
+        "displayName": "Hairline Hover",
+        "canonical": "oklch(0.78 0.01 165)",
+        "tonalRamp": [
+          "oklch(0.23 0.014 175)",
+          "oklch(0.4 0.012 175)",
+          "oklch(0.5 0.01 175)",
+          "oklch(0.78 0.01 165)",
+          "oklch(0.84 0.008 165)",
+          "oklch(0.905 0.006 165)",
+          "oklch(0.925 0.008 165)",
+          "oklch(0.955 0.006 165)",
+          "oklch(0.975 0.004 165)",
+          "oklch(0.995 0.002 165)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Graphite",
+        "canonical": "oklch(0.23 0.014 175)",
+        "tonalRamp": [
+          "oklch(0.23 0.014 175)",
+          "oklch(0.4 0.012 175)",
+          "oklch(0.5 0.01 175)",
+          "oklch(0.78 0.01 165)",
+          "oklch(0.84 0.008 165)",
+          "oklch(0.905 0.006 165)",
+          "oklch(0.925 0.008 165)",
+          "oklch(0.955 0.006 165)",
+          "oklch(0.975 0.004 165)",
+          "oklch(0.995 0.002 165)"
+        ],
+        "cssVar": "--ink"
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Graphite 2",
+        "canonical": "oklch(0.4 0.012 175)",
+        "tonalRamp": [
+          "oklch(0.23 0.014 175)",
+          "oklch(0.4 0.012 175)",
+          "oklch(0.5 0.01 175)",
+          "oklch(0.78 0.01 165)",
+          "oklch(0.84 0.008 165)",
+          "oklch(0.905 0.006 165)",
+          "oklch(0.925 0.008 165)",
+          "oklch(0.955 0.006 165)",
+          "oklch(0.975 0.004 165)",
+          "oklch(0.995 0.002 165)"
+        ],
+        "cssVar": "--ink-2"
+      },
+      "ink-3": {
+        "role": "neutral",
+        "displayName": "Graphite 3",
+        "canonical": "oklch(0.5 0.01 175)",
+        "tonalRamp": [
+          "oklch(0.23 0.014 175)",
+          "oklch(0.4 0.012 175)",
+          "oklch(0.5 0.01 175)",
+          "oklch(0.78 0.01 165)",
+          "oklch(0.84 0.008 165)",
+          "oklch(0.905 0.006 165)",
+          "oklch(0.925 0.008 165)",
+          "oklch(0.955 0.006 165)",
+          "oklch(0.975 0.004 165)",
+          "oklch(0.995 0.002 165)"
+        ],
+        "cssVar": "--ink-3"
+      },
+      "on-ink": {
+        "role": "neutral",
+        "displayName": "On Ink",
+        "canonical": "oklch(0.985 0.004 165)",
+        "tonalRamp": [
+          "oklch(0.23 0.014 175)",
+          "oklch(0.4 0.012 175)",
+          "oklch(0.5 0.01 175)",
+          "oklch(0.78 0.01 165)",
+          "oklch(0.84 0.008 165)",
+          "oklch(0.905 0.006 165)",
+          "oklch(0.925 0.008 165)",
+          "oklch(0.955 0.006 165)",
+          "oklch(0.975 0.004 165)",
+          "oklch(0.995 0.002 165)"
+        ]
+      },
+      "jade": {
+        "role": "primary",
+        "displayName": "Jade",
+        "canonical": "oklch(0.58 0.12 168)",
+        "tonalRamp": [
+          "oklch(0.15 0.054 168)",
+          "oklch(0.26 0.09 168)",
+          "oklch(0.37 0.12 168)",
+          "oklch(0.48 0.12 168)",
+          "oklch(0.59 0.12 168)",
+          "oklch(0.7 0.12 168)",
+          "oklch(0.82 0.12 168)",
+          "oklch(0.95 0.054 168)"
+        ],
+        "cssVar": "--jade"
+      },
+      "jade-2": {
+        "role": "primary",
+        "displayName": "Pale Jade",
+        "canonical": "oklch(0.74 0.08 168)",
+        "tonalRamp": [
+          "oklch(0.15 0.036 168)",
+          "oklch(0.26 0.06 168)",
+          "oklch(0.37 0.08 168)",
+          "oklch(0.48 0.08 168)",
+          "oklch(0.59 0.08 168)",
+          "oklch(0.7 0.08 168)",
+          "oklch(0.82 0.08 168)",
+          "oklch(0.95 0.036 168)"
+        ],
+        "cssVar": "--jade-2"
+      },
+      "jade-ink": {
+        "role": "primary",
+        "displayName": "Jade Ink",
+        "canonical": "oklch(0.45 0.1 168)",
+        "tonalRamp": [
+          "oklch(0.15 0.045 168)",
+          "oklch(0.26 0.075 168)",
+          "oklch(0.37 0.1 168)",
+          "oklch(0.48 0.1 168)",
+          "oklch(0.59 0.1 168)",
+          "oklch(0.7 0.1 168)",
+          "oklch(0.82 0.1 168)",
+          "oklch(0.95 0.045 168)"
+        ],
+        "cssVar": "--jade-ink"
+      },
+      "jade-wash": {
+        "role": "primary",
+        "displayName": "Jade Wash",
+        "canonical": "oklch(0.945 0.03 168)",
+        "tonalRamp": [
+          "oklch(0.15 0.013 168)",
+          "oklch(0.26 0.022 168)",
+          "oklch(0.37 0.03 168)",
+          "oklch(0.48 0.03 168)",
+          "oklch(0.59 0.03 168)",
+          "oklch(0.7 0.03 168)",
+          "oklch(0.82 0.03 168)",
+          "oklch(0.95 0.013 168)"
+        ],
+        "cssVar": "--jade-wash"
+      },
+      "persimmon": {
+        "role": "secondary",
+        "displayName": "Persimmon",
+        "canonical": "oklch(0.64 0.17 40)",
+        "tonalRamp": [
+          "oklch(0.15 0.077 40)",
+          "oklch(0.26 0.128 40)",
+          "oklch(0.37 0.17 40)",
+          "oklch(0.48 0.17 40)",
+          "oklch(0.59 0.17 40)",
+          "oklch(0.7 0.17 40)",
+          "oklch(0.82 0.17 40)",
+          "oklch(0.95 0.077 40)"
+        ],
+        "cssVar": "--persimmon"
+      },
+      "persimmon-ink": {
+        "role": "secondary",
+        "displayName": "Persimmon Ink",
+        "canonical": "oklch(0.52 0.16 36)",
+        "tonalRamp": [
+          "oklch(0.15 0.072 36)",
+          "oklch(0.26 0.12 36)",
+          "oklch(0.37 0.16 36)",
+          "oklch(0.48 0.16 36)",
+          "oklch(0.59 0.16 36)",
+          "oklch(0.7 0.16 36)",
+          "oklch(0.82 0.16 36)",
+          "oklch(0.95 0.072 36)"
+        ],
+        "cssVar": "--persimmon-ink"
+      },
+      "persimmon-wash": {
+        "role": "secondary",
+        "displayName": "Persimmon Wash",
+        "canonical": "oklch(0.955 0.025 40)",
+        "tonalRamp": [
+          "oklch(0.15 0.011 40)",
+          "oklch(0.26 0.019 40)",
+          "oklch(0.37 0.025 40)",
+          "oklch(0.48 0.025 40)",
+          "oklch(0.59 0.025 40)",
+          "oklch(0.7 0.025 40)",
+          "oklch(0.82 0.025 40)",
+          "oklch(0.95 0.011 40)"
+        ],
+        "cssVar": "--persimmon-wash"
+      },
+      "in-bar": {
+        "role": "tertiary",
+        "displayName": "Money In (rest)",
+        "canonical": "oklch(0.7 0.035 235)",
+        "tonalRamp": [
+          "oklch(0.15 0.016 235)",
+          "oklch(0.26 0.026 235)",
+          "oklch(0.37 0.035 235)",
+          "oklch(0.48 0.035 235)",
+          "oklch(0.59 0.035 235)",
+          "oklch(0.7 0.035 235)",
+          "oklch(0.82 0.035 235)",
+          "oklch(0.95 0.016 235)"
+        ],
+        "cssVar": "--in-bar"
+      },
+      "in-bar-sel": {
+        "role": "tertiary",
+        "displayName": "Money In (selected)",
+        "canonical": "oklch(0.45 0.07 240)",
+        "tonalRamp": [
+          "oklch(0.15 0.032 240)",
+          "oklch(0.26 0.053 240)",
+          "oklch(0.37 0.07 240)",
+          "oklch(0.48 0.07 240)",
+          "oklch(0.59 0.07 240)",
+          "oklch(0.7 0.07 240)",
+          "oklch(0.82 0.07 240)",
+          "oklch(0.95 0.032 240)"
+        ],
+        "cssVar": "--in-bar-sel"
+      },
+      "out-bar": {
+        "role": "tertiary",
+        "displayName": "Spent (rest)",
+        "canonical": "oklch(0.83 0.012 165)",
+        "tonalRamp": [
+          "oklch(0.15 0.005 165)",
+          "oklch(0.26 0.009 165)",
+          "oklch(0.37 0.012 165)",
+          "oklch(0.48 0.012 165)",
+          "oklch(0.59 0.012 165)",
+          "oklch(0.7 0.012 165)",
+          "oklch(0.82 0.012 165)",
+          "oklch(0.95 0.005 165)"
+        ],
+        "cssVar": "--out-bar"
+      },
+      "out-bar-sel": {
+        "role": "tertiary",
+        "displayName": "Spent (selected)",
+        "canonical": "oklch(0.55 0.02 175)",
+        "tonalRamp": [
+          "oklch(0.15 0.009 175)",
+          "oklch(0.26 0.015 175)",
+          "oklch(0.37 0.02 175)",
+          "oklch(0.48 0.02 175)",
+          "oklch(0.59 0.02 175)",
+          "oklch(0.7 0.02 175)",
+          "oklch(0.82 0.02 175)",
+          "oklch(0.95 0.009 175)"
+        ],
+        "cssVar": "--out-bar-sel"
+      },
+      "inv-bar": {
+        "role": "tertiary",
+        "displayName": "Invested (rest)",
+        "canonical": "oklch(0.86 0.045 168)",
+        "tonalRamp": [
+          "oklch(0.15 0.02 168)",
+          "oklch(0.26 0.034 168)",
+          "oklch(0.37 0.045 168)",
+          "oklch(0.48 0.045 168)",
+          "oklch(0.59 0.045 168)",
+          "oklch(0.7 0.045 168)",
+          "oklch(0.82 0.045 168)",
+          "oklch(0.95 0.02 168)"
+        ],
+        "cssVar": "--inv-bar"
+      },
+      "inv-bar-sel": {
+        "role": "tertiary",
+        "displayName": "Invested (selected)",
+        "canonical": "oklch(0.68 0.09 168)",
+        "tonalRamp": [
+          "oklch(0.15 0.041 168)",
+          "oklch(0.26 0.068 168)",
+          "oklch(0.37 0.09 168)",
+          "oklch(0.48 0.09 168)",
+          "oklch(0.59 0.09 168)",
+          "oklch(0.7 0.09 168)",
+          "oklch(0.82 0.09 168)",
+          "oklch(0.95 0.041 168)"
+        ],
+        "cssVar": "--inv-bar-sel"
+      },
+      "need": {
+        "role": "tertiary",
+        "displayName": "Needs Slate",
+        "canonical": "oklch(0.55 0.05 235)",
+        "tonalRamp": [
+          "oklch(0.15 0.023 235)",
+          "oklch(0.26 0.038 235)",
+          "oklch(0.37 0.05 235)",
+          "oklch(0.48 0.05 235)",
+          "oklch(0.59 0.05 235)",
+          "oklch(0.7 0.05 235)",
+          "oklch(0.82 0.05 235)",
+          "oklch(0.95 0.023 235)"
+        ]
+      },
+      "want": {
+        "role": "tertiary",
+        "displayName": "Wants Apricot",
+        "canonical": "oklch(0.72 0.1 50)",
+        "tonalRamp": [
+          "oklch(0.15 0.045 50)",
+          "oklch(0.26 0.075 50)",
+          "oklch(0.37 0.1 50)",
+          "oklch(0.48 0.1 50)",
+          "oklch(0.59 0.1 50)",
+          "oklch(0.7 0.1 50)",
+          "oklch(0.82 0.1 50)",
+          "oklch(0.95 0.045 50)"
+        ]
+      },
+      "heat-1": {
+        "role": "tertiary",
+        "displayName": "Intensity 1",
+        "canonical": "oklch(0.89 0.012 240)",
+        "tonalRamp": [
+          "oklch(0.32 0.03 240)",
+          "oklch(0.5 0.035 240)",
+          "oklch(0.66 0.032 240)",
+          "oklch(0.79 0.022 240)",
+          "oklch(0.89 0.012 240)",
+          "oklch(0.955 0.006 165)"
+        ]
+      },
+      "heat-2": {
+        "role": "tertiary",
+        "displayName": "Intensity 2",
+        "canonical": "oklch(0.79 0.022 240)",
+        "tonalRamp": [
+          "oklch(0.32 0.03 240)",
+          "oklch(0.5 0.035 240)",
+          "oklch(0.66 0.032 240)",
+          "oklch(0.79 0.022 240)",
+          "oklch(0.89 0.012 240)",
+          "oklch(0.955 0.006 165)"
+        ]
+      },
+      "heat-3": {
+        "role": "tertiary",
+        "displayName": "Intensity 3",
+        "canonical": "oklch(0.66 0.032 240)",
+        "tonalRamp": [
+          "oklch(0.32 0.03 240)",
+          "oklch(0.5 0.035 240)",
+          "oklch(0.66 0.032 240)",
+          "oklch(0.79 0.022 240)",
+          "oklch(0.89 0.012 240)",
+          "oklch(0.955 0.006 165)"
+        ]
+      },
+      "heat-4": {
+        "role": "tertiary",
+        "displayName": "Intensity 4",
+        "canonical": "oklch(0.5 0.035 240)",
+        "tonalRamp": [
+          "oklch(0.32 0.03 240)",
+          "oklch(0.5 0.035 240)",
+          "oklch(0.66 0.032 240)",
+          "oklch(0.79 0.022 240)",
+          "oklch(0.89 0.012 240)",
+          "oklch(0.955 0.006 165)"
+        ]
+      },
+      "heat-5": {
+        "role": "tertiary",
+        "displayName": "Intensity 5",
+        "canonical": "oklch(0.32 0.03 240)",
+        "tonalRamp": [
+          "oklch(0.32 0.03 240)",
+          "oklch(0.5 0.035 240)",
+          "oklch(0.66 0.032 240)",
+          "oklch(0.79 0.022 240)",
+          "oklch(0.89 0.012 240)",
+          "oklch(0.955 0.006 165)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Selected month title only; 26px at 720px and below."
+      },
+      "lede": {
+        "displayName": "Lede (verdict)",
+        "purpose": "The verdict sentence, max 62ch, ink-2 with bold coloured figures; 18px on mobile."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section titles; 20px on mobile."
+      },
+      "figure": {
+        "displayName": "Figure",
+        "purpose": "Lead number in each insight row, coloured by tone."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Sub-section titles (insight list, import panel)."
+      },
+      "title-sm": {
+        "displayName": "Title Small",
+        "purpose": "Panel titles inside sections, footer headings, wordmark."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Prose and table cells, tabular figures; 14px on mobile."
+      },
+      "control": {
+        "displayName": "Control",
+        "purpose": "Buttons, nav links, selects, links."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Table headers, pills, figure notes, field labels; sentence case."
+      },
+      "axis": {
+        "displayName": "Axis",
+        "purpose": "Chart axis and scale labels in ink-3, compact rupees."
+      },
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "Raw bank narration text in the transactions table only."
+      }
+    },
+    "categoryColor": {
+      "formula": "oklch(0.68 0.1 <hue>)",
+      "transfer": "oklch(0.72 0.01 160)",
+      "hues": {
+        "rent": 250,
+        "groceries": 140,
+        "bills": 205,
+        "emi": 285,
+        "insurance": 230,
+        "health": 170,
+        "transport": 95,
+        "education": 300,
+        "family": 330,
+        "food": 35,
+        "shopping": 15,
+        "subscriptions": 315,
+        "entertainment": 345,
+        "travel": 190,
+        "personal": 60,
+        "cash": 75,
+        "cc_bill": 265,
+        "upi_other": 120,
+        "other": 110,
+        "salary": 165,
+        "interest": 180,
+        "refund": 150,
+        "other_in": 195,
+        "invest": 160
+      },
+      "purpose": "Small marks only (swatch, share bar, sparkline selection, flow nodes), always beside the category name."
+    },
+    "channelColors": {
+      "UPI": "oklch(0.52 0.1 265)",
+      "Card": "oklch(0.7 0.08 225)",
+      "Auto-debit": "oklch(0.6 0.03 250)",
+      "Bank transfer": "oklch(0.7 0.07 110)",
+      "ATM cash": "oklch(0.72 0.1 65)",
+      "Cheque": "oklch(0.65 0.06 320)",
+      "Other": "oklch(0.8 0.01 160)"
+    },
+    "shadows": [
+      {
+        "name": "tooltip-lift",
+        "value": "0 10px 28px -10px oklch(0.2 0.02 175 / 0.45), 0 2px 6px -2px oklch(0.2 0.02 175 / 0.25)",
+        "purpose": "Dark chart/badge tooltip; floating only."
+      },
+      {
+        "name": "toast-lift",
+        "value": "0 16px 36px -12px oklch(0.2 0.02 175 / 0.5)",
+        "purpose": "Bottom-centre confirmation toast; floating only."
+      }
+    ],
+    "focus": {
+      "value": "outline: 2px solid var(--jade); outline-offset: 2px; border-radius: 4px",
+      "rowVariant": "box-shadow: inset 2px 0 0 var(--jade) on the leading cell, surface-2 fill"
+    },
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "The single easing curve for every transition and animation."
+      },
+      {
+        "name": "state",
+        "value": "160ms",
+        "purpose": "Hover, press, selection colour and fill changes (120ms on table rows and weekday bars)."
+      },
+      {
+        "name": "toast",
+        "value": "220ms",
+        "purpose": "Toast rises 12px and fades in."
+      },
+      {
+        "name": "swap",
+        "value": "260ms",
+        "purpose": "Panels re-rendered on month change fade from 0.4 opacity and rise 3px."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "prefers-reduced-motion: reduce",
+        "purpose": "Removes the swap animation and zeroes all transition durations."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "nav-collapse",
+        "value": "1180px",
+        "purpose": "Top-bar section nav hides."
+      },
+      {
+        "name": "stack",
+        "value": "1024px",
+        "purpose": "Two-column grids and footer stack to one column."
+      },
+      {
+        "name": "mobile",
+        "value": "720px",
+        "purpose": "Type steps down, optional columns hide, mobile meta lines appear, wordmark text hides."
+      },
+      {
+        "name": "narrow",
+        "value": "420px",
+        "purpose": "Privacy badge hides."
+      }
+    ],
+    "layout": {
+      "page": "1360px",
+      "gutter": "clamp(16px, 3vw, 40px)",
+      "topbar": "60px (56px mobile), sticky",
+      "scrollPaddingTop": "76px",
+      "grids": {
+        "overview": "7fr 5fr, gap 40px",
+        "flow/years/balance": "8fr 4fr, gap 48px",
+        "habits": "1fr 1fr, gap 56px",
+        "footer": "3fr 2fr, gap 56px"
+      }
+    },
+    "numberFormat": {
+      "locale": "en-IN",
+      "currency": "₹ prefix, lakh grouping (₹1,78,974)",
+      "compact": "k / L / Cr (₹5.8k, ₹4 L, ₹1.2 Cr)",
+      "minus": "U+2212 −",
+      "missing": "—",
+      "fontFeature": "tnum everywhere, including SVG text"
+    }
+  },
+  "components": [
+    {
+      "name": "Button",
+      "kind": "button",
+      "refersTo": "button",
+      "description": "Default control: quiet surface fill with a hairline border.",
+      "html": "<button class=\"ds-btn\">Cancel</button>",
+      "css": ".ds-btn { display:inline-flex; align-items:center; gap:8px; height:34px; padding:0 14px; border:1px solid var(--rule-2); border-radius:7px; background:var(--surface); color:var(--ink); font:500 13.5px/1 var(--font); cursor:pointer; transition:background-color 160ms var(--ease), border-color 160ms var(--ease); } .ds-btn:hover { background:var(--surface-2); border-color:oklch(0.78 0.01 165); } .ds-btn:active { background:var(--surface-3); } .ds-btn:focus-visible { outline:2px solid var(--jade); outline-offset:2px; }"
+    },
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one graphite action per context (Import statements, Analyse).",
+      "html": "<button class=\"ds-btn-primary\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 15V4M7 9l5-5 5 5M5 15v4a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-4\"/></svg>Import statements</button>",
+      "css": ".ds-btn-primary { display:inline-flex; align-items:center; gap:8px; height:34px; padding:0 14px; border:1px solid var(--ink); border-radius:7px; background:var(--ink); color:oklch(0.985 0.004 165); font:500 13.5px/1 var(--font); cursor:pointer; transition:background-color 160ms var(--ease), border-color 160ms var(--ease); } .ds-btn-primary:hover { background:oklch(0.32 0.02 175); border-color:oklch(0.32 0.02 175); } .ds-btn-primary:active { background:oklch(0.18 0.012 175); } .ds-btn-primary:focus-visible { outline:2px solid var(--jade); outline-offset:2px; }"
+    },
+    {
+      "name": "Segmented Control",
+      "kind": "custom",
+      "refersTo": "segmented",
+      "description": "Range and filter switch; the pressed option fills graphite.",
+      "html": "<div class=\"ds-seg\" role=\"group\" aria-label=\"Months shown\"><button>12 mo</button><button aria-pressed=\"true\">24 mo</button><button>All</button></div>",
+      "css": ".ds-seg { display:inline-flex; gap:2px; padding:3px; border:1px solid var(--rule-2); border-radius:9px; background:var(--surface); } .ds-seg button { border:0; background:none; height:26px; padding:0 11px; border-radius:6px; font:500 13px/1 var(--font); color:var(--ink-2); cursor:pointer; transition:background-color 160ms var(--ease), color 160ms var(--ease); } .ds-seg button:hover { color:var(--ink); background:var(--surface-2); } .ds-seg button[aria-pressed=\"true\"] { background:var(--ink); color:oklch(0.985 0.004 165); } .ds-seg button:focus-visible { outline:2px solid var(--jade); outline-offset:2px; }"
+    },
+    {
+      "name": "Search Field",
+      "kind": "input",
+      "refersTo": "search-input",
+      "description": "Ledger search with inset icon.",
+      "html": "<label class=\"ds-search\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"7\"/><path d=\"M20 20l-3.5-3.5\"/></svg><input type=\"search\" placeholder=\"Search merchant or description\" aria-label=\"Search transactions\"></label>",
+      "css": ".ds-search { position:relative; display:flex; align-items:center; width:320px; } .ds-search svg { position:absolute; left:11px; color:var(--ink-3); pointer-events:none; } .ds-search input { width:100%; height:34px; padding:0 12px 0 34px; border:1px solid var(--rule-2); border-radius:7px; background:var(--surface); color:var(--ink); font:400 14.5px var(--font); } .ds-search input::placeholder { color:var(--ink-3); } .ds-search input:hover { border-color:oklch(0.78 0.01 165); } .ds-search input:focus-visible { outline:2px solid var(--jade); outline-offset:2px; }"
+    },
+    {
+      "name": "Section Navigation",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Top-bar section links; active section gets a jade underline on the bar rule.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\" class=\"is-active\">Overview</a><a href=\"#\">Where it went</a><a href=\"#\">Categories</a></nav>",
+      "css": ".ds-nav { display:flex; gap:2px; height:60px; align-items:center; border-bottom:1px solid var(--rule); background:var(--bg); padding:0 16px; } .ds-nav a { position:relative; padding:8px 10px; border-radius:6px; text-decoration:none; color:var(--ink-3); font:500 13.5px/1.5 var(--font); transition:color 160ms var(--ease), background-color 160ms var(--ease); } .ds-nav a:hover { color:var(--ink); background:var(--surface-2); } .ds-nav a.is-active { color:var(--ink); } .ds-nav a.is-active::after { content:\"\"; position:absolute; left:10px; right:10px; bottom:-11px; height:2px; border-radius:2px; background:var(--jade); } .ds-nav a:focus-visible { outline:2px solid var(--jade); outline-offset:2px; }"
+    },
+    {
+      "name": "Tags and Filter Chip",
+      "kind": "chip",
+      "refersTo": "chip-filter",
+      "description": "Source tags (sample vs yours), a neutral pill, and the jade filter chip.",
+      "html": "<div class=\"ds-tags\"><span class=\"ds-tag\">Sample data</span><span class=\"ds-tag is-yours\">Your data</span><span class=\"ds-pill\">Partial month</span><span class=\"ds-chip\">Groceries · September<button aria-label=\"Clear filter\"><svg width=\"13\" height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\"><path d=\"M6 6l12 12M18 6L6 18\"/></svg></button></span></div>",
+      "css": ".ds-tags { display:flex; gap:10px; align-items:center; font-family:var(--font); } .ds-tag { display:inline-flex; align-items:center; height:22px; padding:0 9px; border-radius:999px; background:var(--surface-3); color:var(--ink-2); font-weight:600; font-size:12px; } .ds-tag.is-yours { background:var(--jade-wash); color:var(--jade-ink); } .ds-pill { display:inline-flex; align-items:center; height:22px; padding:0 8px; border-radius:999px; background:var(--surface-2); color:var(--ink-2); font-size:12px; font-weight:500; } .ds-chip { display:inline-flex; align-items:center; gap:6px; height:28px; padding:0 4px 0 10px; border-radius:999px; background:var(--jade-wash); color:var(--jade-ink); font-size:13px; font-weight:500; } .ds-chip button { display:grid; place-items:center; width:22px; height:22px; border-radius:50%; border:0; background:none; color:inherit; cursor:pointer; } .ds-chip button:hover { background:color-mix(in oklch, var(--jade) 18%, transparent); } .ds-chip button:focus-visible { outline:2px solid var(--jade); outline-offset:2px; }"
+    },
+    {
+      "name": "Comparison Matrix",
+      "kind": "custom",
+      "refersTo": "comparison-table",
+      "description": "This / last / delta / last year table that replaces KPI tiles; hairline rows, tabular figures, triangle deltas.",
+      "html": "<table class=\"ds-tbl\"><thead><tr><th></th><th class=\"n cur\">Sep 26</th><th class=\"n\">Aug 26</th><th class=\"n\">vs Aug 26</th></tr></thead><tbody><tr><th>Spent</th><td class=\"n cur\">₹1,31,848</td><td class=\"n\">₹1,22,990</td><td class=\"n\"><span class=\"ds-delta bad\"><svg width=\"9\" height=\"9\" viewBox=\"0 0 12 12\" fill=\"currentColor\"><path d=\"M6 2l4.5 7h-9z\"/></svg>7.2%</span></td></tr><tr class=\"key\"><th>Kept</th><td class=\"n cur\">₹47,126</td><td class=\"n\">₹54,750</td><td class=\"n\"><span class=\"ds-delta bad\"><svg width=\"9\" height=\"9\" viewBox=\"0 0 12 12\" fill=\"currentColor\"><path d=\"M6 10l4.5-7h-9z\"/></svg>14%</span></td></tr></tbody></table>",
+      "css": ".ds-tbl { width:420px; border-collapse:collapse; font:400 14.5px/1.5 var(--font); font-variant-numeric:tabular-nums; color:var(--ink); } .ds-tbl th, .ds-tbl td { padding:11px 8px; text-align:left; border-bottom:1px solid var(--rule); } .ds-tbl th:first-child { padding-left:0; } .ds-tbl td:last-child, .ds-tbl th:last-child { padding-right:0; } .ds-tbl thead th { font-size:12px; font-weight:500; color:var(--ink-3); border-bottom-color:var(--rule-2); } .ds-tbl tbody th { font-weight:500; color:var(--ink-2); } .ds-tbl .n { text-align:right; white-space:nowrap; } .ds-tbl .cur { font-weight:600; color:var(--ink); } .ds-tbl tr.key th, .ds-tbl tr.key td.cur { color:var(--jade-ink); } .ds-delta { display:inline-flex; align-items:center; gap:4px; font-size:13px; font-weight:500; } .ds-delta.good { color:var(--jade-ink); } .ds-delta.bad { color:var(--persimmon-ink); }"
+    },
+    {
+      "name": "Insight Row",
+      "kind": "custom",
+      "refersTo": "insight",
+      "description": "Ranked finding that leads with its figure, then the explanation and a link to the payments.",
+      "html": "<ul class=\"ds-insights\"><li class=\"tone-bad\"><div class=\"fig\"><span>+₹18,000</span><small>more a year</small></div><div><p class=\"t\">Rent went up 5%</p><p class=\"d\">Paid to Ramesh Gowda, from ₹30,000 to ₹31,500 monthly since 02 Jun 2026.</p></div><a href=\"#\" class=\"ds-link\">Show payments</a></li></ul>",
+      "css": ".ds-insights { list-style:none; margin:0; padding:0; border-top:1px solid var(--rule-2); font:400 14.5px/1.5 var(--font); color:var(--ink); font-variant-numeric:tabular-nums; } .ds-insights li { display:grid; grid-template-columns:190px minmax(0,1fr) auto; gap:8px 28px; align-items:baseline; padding:16px 0; border-bottom:1px solid var(--rule); } .ds-insights .fig { display:grid; gap:1px; } .ds-insights .fig span { font-size:21px; font-weight:600; letter-spacing:-0.015em; line-height:1.15; } .ds-insights .fig small { font-size:12px; color:var(--ink-3); } .ds-insights .tone-bad .fig span, .ds-insights li.tone-bad .fig span { color:var(--persimmon-ink); } .ds-insights .t { margin:0; font-weight:600; line-height:1.35; } .ds-insights .d { margin:3px 0 0; color:var(--ink-2); font-size:13.5px; } .ds-link { color:var(--jade-ink); font-weight:500; font-size:13px; text-decoration:underline; text-decoration-color:color-mix(in oklch, var(--jade-ink) 35%, transparent); text-underline-offset:3px; } .ds-link:hover { text-decoration-color:currentColor; } .ds-link:focus-visible { outline:2px solid var(--jade); outline-offset:2px; border-radius:4px; }"
+    },
+    {
+      "name": "Drop Zone",
+      "kind": "input",
+      "refersTo": "drop-zone",
+      "description": "Statement file drop target; dashed hairline that turns jade on hover or drag-over.",
+      "html": "<label class=\"ds-drop\"><input type=\"file\" multiple><svg width=\"26\" height=\"26\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z\"/><path d=\"M14 3v5h5M9 13h6M9 17h4\"/></svg><span class=\"m\"><strong>Drop statement files here</strong> or <span class=\"l\">choose files</span></span><span class=\"s\">.csv, .xls or .xlsx · read in this browser, never uploaded</span></label>",
+      "css": ".ds-drop { position:relative; display:grid; justify-items:center; gap:6px; padding:30px 20px; width:520px; text-align:center; cursor:pointer; border:1.5px dashed var(--rule-2); border-radius:10px; background:var(--bg); font-family:var(--font); color:var(--ink); transition:border-color 160ms var(--ease), background-color 160ms var(--ease); } .ds-drop:hover { border-color:var(--jade); background:var(--jade-wash); } .ds-drop:focus-within { outline:2px solid var(--jade); outline-offset:2px; } .ds-drop input { position:absolute; inset:0; opacity:0; cursor:pointer; } .ds-drop svg { color:var(--ink-3); } .ds-drop .m { font-size:15px; } .ds-drop .l { color:var(--jade-ink); font-weight:500; text-decoration:underline; text-underline-offset:3px; } .ds-drop .s { color:var(--ink-3); font-size:12.5px; }"
+    },
+    {
+      "name": "Tooltip",
+      "kind": "custom",
+      "refersTo": "tooltip",
+      "description": "Dark floating readout for chart marks; the only shadowed element besides the toast.",
+      "html": "<div class=\"ds-tip\"><strong>September 2026</strong><span>In ₹1,78,974</span><span>Spent ₹1,31,848</span><span>Kept ₹47,126 · 26%</span></div>",
+      "css": ".ds-tip { display:inline-grid; gap:2px; min-width:120px; max-width:280px; padding:9px 11px; border-radius:9px; background:oklch(0.22 0.014 175); color:oklch(0.88 0.008 165); font:400 12.5px/1.4 var(--font); font-variant-numeric:tabular-nums; box-shadow:0 10px 28px -10px oklch(0.2 0.02 175 / 0.45), 0 2px 6px -2px oklch(0.2 0.02 175 / 0.25); } .ds-tip strong { color:oklch(0.985 0.004 165); font-weight:600; margin-bottom:2px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Plain-Spoken Analyst",
+    "overview": "The system reads like a sharp analyst talking you through your own month: a sentence first, then the comparison table that proves it, then the charts that let you check the working. Everything sits on a cool, faintly green paper-white ground in graphite ink. Structure comes from hairline rules and whitespace, not from boxed cards; the page is one continuous sheet divided into sections by single horizontal rules.\n\nColour is spent like money in a careful budget. Neutrals carry almost all of the page. One jade accent marks the thing you are looking at (the selected month, the active control's focus ring) and the money you kept. Persimmon appears only where money went wrong. Data series rest in low-chroma tints and only saturate for the selected month, so the eye always lands on \"this month\" first. Charts are hand-drawn SVG sharing one ₹ scale, typeset in the same face as the prose.\n\nAnek Latin, with its native ₹ and tabular figures switched on everywhere, gives the numbers a single consistent rhythm. Indian money conventions are typographic rules here, not localisation: lakh grouping, `L` and `Cr` abbreviations, a true minus sign. The world is light-only; there is no dark theme.",
+    "keyCharacteristics": [
+      "Cool paper-white ground (hue 165) with graphite ink (hue 175); neutrals do the work.",
+      "Hairline rules instead of cards; sections separated by one 1px rule.",
+      "A single jade accent for selection and kept money; persimmon reserved for overspend.",
+      "Words and comparison tables lead; charts support and double as controls.",
+      "Tabular figures and Indian number formatting on every number, including inside SVG.",
+      "Flat at rest; only floating things (tooltip, toast) cast shadows."
+    ],
+    "rules": [
+      {
+        "name": "The One Jade Rule",
+        "body": "Jade means \"selected\" or \"kept\". It never decorates; if a jade element is neither the current selection, a focus state, nor money the owner kept or saved, it is the wrong colour.",
+        "section": "colors"
+      },
+      {
+        "name": "The Persimmon Is Overspend Rule",
+        "body": "Persimmon appears only where money went the wrong way or something failed. It is never a second brand accent.",
+        "section": "colors"
+      },
+      {
+        "name": "The Triangle-Plus-Tint Rule",
+        "body": "Colour encodes good or bad, a filled SVG triangle encodes up or down, and screen-reader text says \"up\" or \"down\". Spending up is a persimmon up-triangle; spending down is a jade down-triangle. Colour is never the only signal.",
+        "section": "colors"
+      },
+      {
+        "name": "The Muted-Until-Selected Rule",
+        "body": "Chart series rest in low-chroma tints; only the selected month takes the saturated `-sel` variants and the jade-wash column behind it.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tabular Everywhere Rule",
+        "body": "`tnum` is set on the body and on every SVG `text`; any new number, in prose, table or chart, inherits it. Never switch to proportional figures for a \"nicer\" headline number.",
+        "section": "typography"
+      },
+      {
+        "name": "The Indian Money Rule",
+        "body": "Rupees always carry the ₹ sign with en-IN lakh grouping (₹1,78,974). Compact values use `k`, `L` and `Cr` (₹5.8k, ₹4 L, ₹1.2 Cr). Negatives use a true minus (−), missing values an em dash (—).",
+        "section": "typography"
+      },
+      {
+        "name": "The Sentence-Case Rule",
+        "body": "Every label, header, tag and button is sentence case at normal tracking. Hierarchy comes from size and weight steps, not from capitals or letterspacing.",
+        "section": "typography"
+      },
+      {
+        "name": "The Hairline Not Box Rule",
+        "body": "Analysis lives on the open sheet, divided by 1px rules. Bordered or tinted containers are reserved for objects the owner handles (the drop zone, imported-file cards) and for the single tinted verdict note; dashboard content is never wrapped in cards.",
+        "section": "layout"
+      },
+      {
+        "name": "The Only-Floating-Things-Cast Rule",
+        "body": "A shadow means \"this is temporary and above the page\". Anything that stays in the layout gets a hairline or a tone step instead.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** lead every analytical view with a sentence or a comparison (this period, last period, delta, same period last year) before any chart.",
+      "**Do** keep jade for the selected state, focus, and kept or saved money only (The One Jade Rule).",
+      "**Do** pair every up/down colour with a filled triangle and screen-reader \"up\"/\"down\" text (The Triangle-Plus-Tint Rule).",
+      "**Do** set tabular figures and en-IN grouping on every rupee value, with compact `k` / `L` / `Cr` on chart axes and labels.",
+      "**Do** separate sections and rows with 1px hairlines (`rule`, `rule-2`) on the paper ground.",
+      "**Do** give every chart a text equivalent (adjacent table or list plus tooltips) and make its marks keyboard reachable where they act as controls.",
+      "**Do** derive new category colours from the `oklch(0.68 0.1 <hue>)` formula and always print the category name beside its swatch.",
+      "**Do** label sample data as sample wherever it is shown."
+    ],
+    "donts": [
+      "**Don't** wrap dashboard analysis in cards or tiles; boxed containers belong only to the drop zone, imported-file cards and the tinted verdict note.",
+      "**Don't** introduce four-up KPI tiles or donut charts; comparisons are tables with deltas, shares are horizontal bars.",
+      "**Don't** use persimmon for anything except overspend, errors or a negative balance effect.",
+      "**Don't** put shadows on resting surfaces; only the tooltip and toast float.",
+      "**Don't** use uppercase labels, letterspaced eyebrows or a second display face; hierarchy is size and weight in Anek Latin.",
+      "**Don't** saturate unselected chart series; resting data stays in its low-chroma tint.",
+      "**Don't** build metaphorical or retro-artifact visuals (ledger paper, terminals, timetables, signage); this is a modern finance dashboard.",
+      "**Don't** add a dark theme by inverting tokens; the system is defined light-only."
+    ]
+  }
+}

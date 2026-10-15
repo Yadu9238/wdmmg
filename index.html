@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Where did my money go</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+      <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15V4M7 9l5-5 5 5M5 15v4a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-4"/></symbol>
+      <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></symbol>
+      <symbol id="i-left" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol>
+      <symbol id="i-right" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></symbol>
+      <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+      <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></symbol>
+      <symbol id="i-spike" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"/></symbol>
+      <symbol id="i-inflation" viewBox="0 0 24 24"><path d="M4 20h16M6 16l4-4 3 2 5-6"/><path d="M6 12l4-2 3 1 5-3" opacity=".45"/></symbol>
+      <symbol id="i-new" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></symbol>
+      <symbol id="i-price" viewBox="0 0 24 24"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/></symbol>
+      <symbol id="i-habit" viewBox="0 0 24 24"><path d="M17 2l4 4-4 4M3 11V9a3 3 0 0 1 3-3h15M7 22l-4-4 4-4M21 13v2a3 3 0 0 1-3 3H3"/></symbol>
+      <symbol id="i-duplicate" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></symbol>
+      <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"/></symbol>
+      <symbol id="i-low" viewBox="0 0 24 24"><path d="M3.5 18a9 9 0 1 1 17 0"/><path d="M12 14l-4-4"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></symbol>
+      <symbol id="i-down" viewBox="0 0 24 24"><path d="M3 7l6 6 4-4 8 8M21 11v6h-6"/></symbol>
+      <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+      <symbol id="i-d-up" viewBox="0 0 12 12"><path d="M6 2l4.5 7h-9z"/></symbol>
+      <symbol id="i-d-down" viewBox="0 0 12 12"><path d="M6 10l4.5-7h-9z"/></symbol>
+    </defs>
+  </svg>
+
+  <a class="skip" href="#main">Skip to the dashboard</a>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#overview" aria-label="Where did my money go, back to top">
+        <svg class="brand-mark" viewBox="0 0 28 28" aria-hidden="true">
+          <rect width="28" height="28" rx="7" class="bm-bg"/>
+          <path d="M7 9.5h9.5a3.5 3.5 0 0 1 0 7H11a3.5 3.5 0 0 0 0 7" class="bm-flow"/>
+          <circle cx="7" cy="9.5" r="1.8" class="bm-dot"/>
+        </svg>
+        <span class="brand-name">Where did my money go</span>
+      </a>
+      <nav class="sections" aria-label="Sections">
+        <a href="#overview">Overview</a>
+        <a href="#flow">Where it went</a>
+        <a href="#categories">Categories</a>
+        <a href="#years">Year on year</a>
+        <a href="#habits">Habits</a>
+        <a href="#recurring">Recurring</a>
+        <a href="#balance">Balance</a>
+        <a href="#ledger">Transactions</a>
+      </nav>
+      <div class="topbar-actions">
+        <span class="privacy" tabindex="0" data-tip="Your statements are read by this page, in this browser.|Nothing is uploaded or sent anywhere.">
+          <svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg>On this device
+        </span>
+        <button class="btn btn-primary" id="importBtn" aria-expanded="false" aria-controls="importPanel">
+          <svg class="icon" aria-hidden="true"><use href="#i-upload"/></svg>Import statements
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section class="import" id="importPanel" hidden aria-labelledby="importTitle">
+    <div class="import-inner">
+      <div class="import-head">
+        <div>
+          <h2 id="importTitle">Import bank statements</h2>
+          <p>CSV or Excel exports from netbanking. Add several files to cover more months; rows that appear in more than one file are counted once.</p>
+        </div>
+        <button class="btn btn-icon" id="importClose" aria-label="Close import"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+      </div>
+      <label class="drop" id="drop">
+        <input type="file" id="fileInput" multiple accept=".csv,.txt,.xls,.xlsx,.xlsm,.ods">
+        <svg class="icon drop-icon" aria-hidden="true"><use href="#i-file"/></svg>
+        <span class="drop-main"><strong>Drop statement files here</strong> or <span class="link">choose files</span></span>
+        <span class="drop-sub">.csv, .xls or .xlsx · read in this browser, never uploaded</span>
+      </label>
+      <div id="importFiles" class="import-files"></div>
+      <div class="import-actions">
+        <label class="check"><input type="checkbox" id="remember"> <span>Remember on this device <small>(kept in this browser's storage until you clear it)</small></span></label>
+        <div class="import-buttons">
+          <button class="btn" id="importCancel">Cancel</button>          <button class="btn btn-primary" id="importApply" disabled>Analyse</button>
+        </div>
+      </div>
+      <p class="import-help">Most banks offer this under <em>Account statement</em> → <em>Download</em>, choosing <em>Excel</em>, <em>CSV</em> or <em>Delimited</em>. PDF statements aren't supported; columns are detected automatically and can be corrected above.</p>
+    </div>
+  </section>
+
+  <div class="source-bar" id="sourceBar" role="status"></div>
+
+  <main id="main">
+    <section id="overview" class="sec sec-overview" aria-labelledby="periodTitle">
+      <div class="period">
+        <div class="period-nav">
+          <button class="btn btn-icon" id="prevMonth" aria-label="Previous month"><svg class="icon" aria-hidden="true"><use href="#i-left"/></svg></button>
+          <h1 id="periodTitle">&nbsp;</h1>
+          <button class="btn btn-icon" id="nextMonth" aria-label="Next month"><svg class="icon" aria-hidden="true"><use href="#i-right"/></svg></button>
+        </div>
+        <p class="period-meta" id="periodMeta"></p>
+      </div>
+      <p class="verdict swap" id="verdict"></p>
+      <div class="ov-grid">
+        <div class="cf-panel">
+          <div class="panel-head">
+            <h2 class="h3">Cash flow by month</h2>
+            <div class="seg" role="group" aria-label="Months shown" id="rangeSeg">
+              <button data-range="12">12 mo</button><button data-range="24">24 mo</button><button data-range="0">All</button>
+            </div>
+          </div>
+          <div class="legend">
+            <span><i class="sw sw-in"></i>Money in</span>
+            <span><i class="sw sw-out"></i>Spent</span>
+            <span><i class="sw sw-inv"></i>Invested</span>
+            <span><i class="sw sw-net"></i>Kept</span>
+            <span class="legend-hint">Select a month to analyse it</span>
+          </div>
+          <div class="chart-box" id="cfChart"></div>
+        </div>
+        <div class="matrix-panel swap" id="matrix"></div>
+      </div>
+      <div class="insights swap" id="insights"></div>
+    </section>
+
+    <section id="flow" class="sec" aria-labelledby="flowTitle">
+      <div class="sec-head"><h2 id="flowTitle">Where it went</h2><p id="flowSub"></p></div>
+      <div class="flow-grid">
+        <div class="chart-box swap" id="flowChart"></div>
+        <aside class="flow-side swap" id="flowSide"></aside>
+      </div>
+    </section>
+
+    <section id="categories" class="sec" aria-labelledby="catTitle">
+      <div class="sec-head"><h2 id="catTitle">Categories, month on month</h2><p id="catSub"></p></div>
+      <div class="table-scroll swap" id="catTable"></div>
+    </section>
+
+    <section id="years" class="sec" aria-labelledby="yearTitle">
+      <div class="sec-head sec-head-row">
+        <div><h2 id="yearTitle">Year on year</h2><p id="yearSub"></p></div>
+        <div class="seg" role="group" aria-label="Year type" id="yearSeg">
+          <button data-year="cal">Calendar year</button><button data-year="fy">Financial year</button>
+        </div>
+      </div>
+      <div class="table-scroll" id="yearTable"></div>
+      <div class="years-grid">
+        <div class="chart-box" id="cumChart"></div>
+        <div class="years-note swap" id="yearNote"></div>
+      </div>
+    </section>
+
+    <section id="habits" class="sec" aria-labelledby="habitTitle">
+      <div class="sec-head"><h2 id="habitTitle">Habits</h2><p id="habitSub"></p></div>
+      <div class="chart-box hm-box" id="heatmap"></div>
+      <div class="habits-grid">
+        <div>
+          <h3 class="h3">By day of the week</h3>
+          <p class="note" id="weekdayNote"></p>
+          <div class="chart-box" id="weekdayChart"></div>
+        </div>
+        <div>
+          <h3 class="h3">How you pay</h3>
+          <p class="note" id="channelNote"></p>
+          <div id="channelMix"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="recurring" class="sec" aria-labelledby="recTitle">
+      <div class="sec-head sec-head-row">
+        <div><h2 id="recTitle">Recurring payments &amp; subscriptions</h2><p id="recSub"></p></div>
+        <label class="check"><input type="checkbox" id="showStopped"> <span>Show stopped</span></label>
+      </div>
+      <div class="table-scroll" id="recTable"></div>
+    </section>
+
+    <section id="balance" class="sec" aria-labelledby="balTitle">
+      <div class="sec-head"><h2 id="balTitle">Balance &amp; safety net</h2><p id="balSub"></p></div>
+      <div class="balance-grid">
+        <div class="chart-box" id="balChart"></div>
+        <div class="runway swap" id="runway"></div>
+      </div>
+    </section>
+
+    <section id="ledger" class="sec" aria-labelledby="ledTitle">
+      <div class="sec-head"><h2 id="ledTitle">Transactions</h2><p>Change a category and every payment to the same merchant follows. Your changes are remembered on this device.</p></div>
+      <div class="ledger-controls">
+        <label class="search"><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg><input type="search" id="ledQ" placeholder="Search merchant or description" aria-label="Search transactions"></label>
+        <select id="ledCat" aria-label="Filter by category"></select>
+        <div class="seg" role="group" aria-label="Direction" id="ledDir">
+          <button data-dir="">All</button><button data-dir="out">Money out</button><button data-dir="in">Money in</button>
+        </div>
+        <div class="seg" role="group" aria-label="Period" id="ledScope">
+          <button data-scope="month" id="ledScopeMonth">This month</button><button data-scope="all">All months</button>
+        </div>
+      </div>
+      <div class="ledger-filter" id="ledFilter"></div>
+      <div class="table-scroll" id="ledTable"></div>
+      <div class="ledger-more" id="ledMore"></div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="foot-inner">
+      <div>
+        <h2 class="h3">How the numbers work</h2>
+        <p><strong>Money in</strong> counts salary, interest, refunds and other credits. Transfers between your own accounts are left out of every total.</p>
+        <p><strong>Spent</strong> is everything else that left the account, except investments. <strong>Kept</strong> is money in minus spent, so it includes what you invested. <strong>Savings rate</strong> is kept as a share of money in.</p>
+        <p><strong>Categories</strong> come from keywords in each description (Swiggy, BESCOM, Zerodha and so on). Anything unmatched lands in <em>Other</em>; fix it in Transactions and the change sticks for that merchant.</p>
+      </div>
+      <div>
+        <h2 class="h3">Privacy</h2>
+        <p>This page has no server. Files are read with your browser's file reader and analysed in memory. Nothing is stored unless you tick <em>Remember on this device</em>, and <em>Clear data</em> removes it.</p>
+        <p class="foot-small">Sample data is synthetic and does not describe a real person or account.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="tooltip" id="tooltip" role="tooltip" hidden></div>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="vendor/xlsx.full.min.js" defer></script>
+  <script src="assets/categorize.js" defer></script>
+  <script src="assets/parse.js" defer></script>
+  <script src="assets/analyze.js" defer></script>
+  <script src="assets/charts.js" defer></script>
+  <script src="assets/sample.js" defer></script>
+  <script src="assets/app.js" defer></script>
+</body>
+</html>
