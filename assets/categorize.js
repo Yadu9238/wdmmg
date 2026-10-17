@@ -75,12 +75,20 @@
   const IFSC = /\b[A-Z]{4}0[A-Z0-9]{6}\b/g;
   const PREFIX = /^(POS|ECOM|ACH\s?[DC]?|NACH|NEFT\s?(CR|DR)?|IMPS|RTGS|BIL|BILLPAY|BBPS|ONL|INB|MB|IB|TO TRANSFER|BY TRANSFER|CHQ|CLG|ME DC SI|SI)\b[\s\-\/:]*/i;
 
+  function withoutAutopay(narration) {
+    const s = String(narration || "").replace(/\s+/g, " ").trim();
+    if (!/\bAUTO[\s_-]*PAY\b/i.test(s)) return s;
+    return s.replace(/\bAUTO[\s_-]*PAY\b/gi, "")
+      .replace(/([\/-])(?:\s*[\/-])+/g, "$1")
+      .replace(/^[\s\/:-]+|[\s\/:-]+$/g, "").replace(/\s+/g, " ").trim();
+  }
+
   function titleCase(s) {
     return s.toLowerCase().replace(/\b([a-z])/g, (m) => m.toUpperCase()).replace(/\b(Upi|Emi|Lic|Atm|Sip|Hdfc|Icici|Sbi|Ppf|Fd|Mf|Bse|Nse|Nps|Hpcl|Bpcl|Iocl|Bescom|Irctc|Pvr|Kfc|Dmart|Bmrcl)\b/g, (m) => m.toUpperCase());
   }
 
   function merchantOf(narration) {
-    const s = String(narration || "").toUpperCase().replace(/\s+/g, " ").trim();
+    const s = withoutAutopay(narration).toUpperCase();
     if (/\bATM\b|\bNWD\b|\bATW\b|CASH WDL|CASH WITHDRAWAL/.test(s)) return "ATM cash";
     const upi = s.match(/UPI[\/\-](?:(?:DR|CR|P2M|P2A|P2P)[\/\-])?(?:\d{6,}[\/\-])?([^\/@\-]{2,40})/);
     let m;
@@ -121,7 +129,24 @@
     try { return JSON.parse(localStorage.getItem(RULES_KEY) || "{}"); } catch (e) { return {}; }
   };
   WD.saveOverrides = function (o) {
-    try { localStorage.setItem(RULES_KEY, JSON.stringify(o)); } catch (e) { /* storage unavailable */ }
+    try { localStorage.setItem(RULES_KEY, JSON.stringify(o)); return true; }
+    catch (e) { console.error("Could not save category changes.", e); return false; }
+  };
+
+  WD.transactionOverrideKey = (t) => "txn:v1:" + JSON.stringify([
+    t.date.getFullYear(), t.date.getMonth() + 1, t.date.getDate(),
+    t.narration, t.amount, t.balance ?? null,
+  ]);
+
+  WD.withCategoryOverride = function (overrides, t, cat, scope) {
+    const next = { ...overrides };
+    if (scope === "merchant") {
+      next[WD.overrideKey(t)] = cat;
+      delete next[WD.transactionOverrideKey(t)];
+    } else {
+      next[WD.transactionOverrideKey(t)] = cat;
+    }
+    return next;
   };
 
   function ruleCategory(narration, amount) {
@@ -143,10 +168,16 @@
     for (const t of txns) {
       t.merchant = merchantOf(t.narration);
       t.mkey = merchantKey(t.merchant);
+      // Without a payee, an autopay reference must not create a shared "Unknown" rule.
+      if (t.merchant === "Unknown" && /\bAUTO[\s_-]*PAY\b/i.test(t.narration)) {
+        t.mkey = `UNIDENTIFIED AUTOPAY:${String(t.narration).toUpperCase().replace(/\s+/g, " ").trim()}`;
+      }
       t.channel = channelOf(t.narration);
       const dirKey = (t.amount < 0 ? "out:" : "in:") + t.mkey;
-      if (overrides[dirKey] && WD.CAT[overrides[dirKey]]) {
-        t.cat = overrides[dirKey];
+      const transactionCat = t.date ? overrides[WD.transactionOverrideKey(t)] : null;
+      const overrideCat = WD.CAT[transactionCat] ? transactionCat : overrides[dirKey];
+      if (overrideCat && WD.CAT[overrideCat]) {
+        t.cat = overrideCat;
         t.how = "yours";
       } else {
         const r = ruleCategory(t.narration, t.amount);

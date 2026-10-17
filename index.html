@@ -206,7 +206,15 @@
     </section>
 
     <section id="ledger" class="sec" aria-labelledby="ledTitle">
-      <div class="sec-head"><h2 id="ledTitle">Transactions</h2><p>Change a category and every payment to the same merchant follows. Your changes are remembered on this device.</p></div>
+      <div class="sec-head"><h2 id="ledTitle">Transactions</h2><p>Category edits apply to one transaction by default. For a friend's repayment, choose the original expense category to reduce your personal spending.</p></div>
+      <div class="category-scope">
+        <label for="categoryScope">Apply category edits to</label>
+        <select id="categoryScope" aria-describedby="categoryScopeHelp">
+          <option value="transaction" selected>This transaction only</option>
+          <option value="merchant">All payments from this merchant</option>
+        </select>
+        <p id="categoryScopeHelp">Merchant rules keep money in and money out separate. Individual transaction choices take priority. Changes are saved on this device.</p>
+      </div>
       <div class="ledger-controls">
         <label class="search"><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg><input type="search" id="ledQ" placeholder="Search merchant or description" aria-label="Search transactions"></label>
         <select id="ledCat" aria-label="Filter by category"></select>
@@ -229,11 +237,11 @@
         <h2 class="h3">How the numbers work</h2>
         <p><strong>Money in</strong> counts salary, interest, refunds and other credits. Transfers between your own accounts are left out of every total.</p>
         <p><strong>Spent</strong> is everything else that left the account, except investments. <strong>Kept</strong> is money in minus spent, so it includes what you invested. <strong>Savings rate</strong> is kept as a share of money in.</p>
-        <p><strong>Categories</strong> come from keywords in each description (Swiggy, BESCOM, Zerodha and so on). Anything unmatched lands in <em>Other</em>; fix it in Transactions and the change sticks for that merchant.</p>
+        <p><strong>Categories</strong> come from keywords in each description (Swiggy, BESCOM, Zerodha and so on). Anything unmatched lands in <em>Other</em>; fix one transaction or save a merchant rule in Transactions. Repayments assigned to a spending category reduce that category in the month received.</p>
       </div>
       <div>
         <h2 class="h3">Privacy</h2>
-        <p>This page has no server. Files are read with your browser's file reader and analysed in memory. Nothing is stored unless you tick <em>Remember on this device</em>, and <em>Clear data</em> removes it.</p>
+        <p>This page has no server. Files are read with your browser's file reader and analysed in memory. Statements are stored only if you tick <em>Remember on this device</em>. Category choices are saved locally; transaction choices include the date, description, amount and balance. <em>Clear data</em> removes both statements and category choices.</p>
         <p class="foot-small">Sample data is synthetic and does not describe a real person or account.</p>
       </div>
     </div>

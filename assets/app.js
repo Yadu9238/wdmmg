@@ -636,12 +636,23 @@
     const t = S.A.txns.find((x) => x.id === id);
     if (!t) return;
     const before = WD.loadOverrides();
-    const o = { ...before, [WD.overrideKey(t)]: cat };
-    WD.saveOverrides(o);
-    const same = S.txns.filter((x) => WD.overrideKey(x) === WD.overrideKey(t)).length;
-    const prevCat = WD.CAT[t.cat].label;
+    const scope = $("#categoryScope").value;
+    const o = WD.withCategoryOverride(before, t, cat, scope);
+    if (!WD.saveOverrides(o)) {
+      renderLedger();
+      toast("Couldn't save this category change. Browser storage may be full or blocked. Allow storage and try again.");
+      return;
+    }
+    const same = S.txns.filter((x) => {
+      const key = WD.transactionOverrideKey(x);
+      const nextCat = o[key] || o[WD.overrideKey(x)] || x.cat;
+      return (scope === "merchant" ? WD.overrideKey(x) === WD.overrideKey(t) : key === WD.transactionOverrideKey(t)) && x.cat !== nextCat;
+    }).length;
     reanalyse();
-    toast(`${same} payment${same === 1 ? "" : "s"} for ${t.merchant} moved from ${prevCat} to ${WD.CAT[cat].label}.`, () => { WD.saveOverrides(before); reanalyse(); });
+    toast(`${same} payment${same === 1 ? "" : "s"} for ${t.merchant} moved to ${WD.CAT[cat].label}.`, () => {
+      if (WD.saveOverrides(before)) reanalyse();
+      else toast("Couldn't undo the category change. Allow browser storage and try changing the category again.");
+    });
   }
 
   function scrollToLedger() {
@@ -739,7 +750,7 @@
     el.hidden = false;
     void el.offsetWidth;
     el.classList.add("is-on");
-    if (undo) $("#toastUndo").onclick = () => { undo(); hideToast(); };
+    if (undo) $("#toastUndo").onclick = () => { hideToast(); undo(); };
     clearTimeout(toastTimer);
     toastTimer = setTimeout(hideToast, undo ? 8000 : 4000);
   }
@@ -836,7 +847,13 @@
         document.body.appendChild(link); link.click(); link.remove();
         setTimeout(() => URL.revokeObjectURL(link.href), 1000);
       } else if (act === "clear") {
-        try { localStorage.removeItem(STORE_KEY); } catch (err) { /* ignore */ }
+        try {
+          localStorage.removeItem(STORE_KEY);
+          localStorage.removeItem("wdmmg.rules.v1");
+        } catch (err) {
+          toast("Couldn't clear saved data. Allow browser storage and try again.");
+          return;
+        }
         loadSample();
         toast("Your data was cleared from this page and this device. Showing the sample again.");
       } else if (act === "latest") select(S.A.months[S.A.months.length - 1]);
